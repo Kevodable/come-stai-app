@@ -1,0 +1,16 @@
+# Config reali con segreti - NON committare mai
+github-config.js
+firebase-config.js
+
+# Firebase Functions
+functions/node_modules/
+functions/.env
+functions/.env.*
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Editor / OS
+.DS_Store
+*.swp

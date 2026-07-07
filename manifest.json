@@ -1,0 +1,17 @@
+{
+  "name": "Come stai? - Diario di coppia",
+  "short_name": "Come stai?",
+  "description": "Condividi il tuo stato d'animo con chi ami, in tempo reale.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff6ee",
+  "theme_color": "#e8735f",
+  "orientation": "portrait",
+  "lang": "it",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

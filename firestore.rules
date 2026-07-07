@@ -1,0 +1,26 @@
+rules_version = '2';
+
+// Firestore e' usato SOLO per salvare il token FCM di ciascun dispositivo,
+// nella collection "tokens" (un documento per profilo: personA / personB).
+// Nessun altro dato dell'app (mood, storia) passa da qui.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /tokens/{personId} {
+      // Nessuno ha bisogno di leggere i token dal client: solo la Cloud
+      // Function (Admin SDK, che ignora queste regole) li legge.
+      allow read: if false;
+
+      allow create, update: if personId in ["personA", "personB"]
+        && request.resource.data.person == personId
+        && request.resource.data.token is string
+        && request.resource.data.token.size() > 0;
+
+      // Solo la Cloud Function (Admin SDK) puo' rimuovere un token scaduto.
+      allow delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

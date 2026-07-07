@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Come stai?</title>
+<meta name="description" content="Condividi il tuo stato d'animo con chi ami, in tempo reale.">
+
+<!-- Colore tema barra iOS/Android -->
+<meta name="theme-color" content="#e8735f">
+
+<!-- Installazione su iPhone (Aggiungi a Home) -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Come stai?">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Messaggio mostrato se github-config.js / firebase-config.js non sono stati creati -->
+<div id="config-missing" class="overlay hidden">
+  <div class="overlay-card">
+    <p class="overlay-emoji">🛠️</p>
+    <h1>Configurazione mancante</h1>
+    <p class="overlay-sub">
+      Manca <code>github-config.js</code> e/o <code>firebase-config.js</code>.<br>
+      Copia i file <code>*.example.js</code> con il nome giusto e inserisci i tuoi valori
+      (vedi <code>README.md</code>).
+    </p>
+  </div>
+</div>
+
+<!-- Onboarding: scelta profilo, salvata in localStorage sul dispositivo -->
+<div id="who-are-you" class="overlay hidden">
+  <div class="overlay-card">
+    <p class="overlay-emoji">💌</p>
+    <h1>Chi sei?</h1>
+    <p class="overlay-sub">Scegli il tuo profilo su questo dispositivo.</p>
+    <div class="who-buttons">
+      <button class="who-btn" data-person="personA">Persona A</button>
+      <button class="who-btn" data-person="personB">Persona B</button>
+    </div>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+  <header class="app-header">
+    <h1>Come stai?</h1>
+    <button id="switch-profile" class="ghost-btn" title="Cambia profilo su questo dispositivo">⚙️</button>
+  </header>
+
+  <main>
+    <section id="screen-today" class="screen active">
+      <div class="other-card">
+        <p class="other-name" id="other-name">—</p>
+        <p class="other-emoji" id="other-emoji">🤔</p>
+        <p class="other-time" id="other-time">in attesa di dati…</p>
+      </div>
+
+      <button id="notify-btn" class="notify-btn">🔔 Attiva notifiche</button>
+      <p id="notify-hint" class="notify-hint hidden"></p>
+
+      <p class="mood-label">E tu, come stai?</p>
+      <div class="mood-grid" id="mood-grid"></div>
+
+      <p id="save-status" class="save-status" aria-live="polite"></p>
+    </section>
+
+    <section id="screen-history" class="screen">
+      <div id="timeline" class="timeline"></div>
+      <p id="timeline-empty" class="timeline-empty hidden">Nessun ricordo ancora.<br>Il vostro diario inizia qui. 💛</p>
+      <button id="load-more" class="load-more-btn hidden">Carica altri ricordi</button>
+    </section>
+  </main>
+
+  <nav class="tab-bar">
+    <button class="tab-btn active" data-screen="screen-today"><span class="tab-icon">🏠</span><span>Oggi</span></button>
+    <button class="tab-btn" data-screen="screen-history"><span class="tab-icon">📖</span><span>Storia</span></button>
+  </nav>
+</div>
+
+<!-- Firebase: usato SOLO per le notifiche push (Messaging + Firestore per salvare il token) -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+<script src="github-config.js"></script>
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
