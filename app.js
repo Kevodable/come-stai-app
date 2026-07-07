@@ -347,7 +347,8 @@ async function setMyMood(emoji) {
 
   if (lastErr) {
     console.error(lastErr);
-    setSaveStatus("⚠️ Salvataggio non riuscito. Riprova.");
+    const detail = lastErr.status ? `${lastErr.status}` : lastErr.message;
+    setSaveStatus(`⚠️ Salvataggio non riuscito (${detail}). Riprova.`);
   }
 
   disableMoodGrid(false);
