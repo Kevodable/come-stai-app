@@ -68,7 +68,7 @@ async function init() {
     handleIncomingData(data);
   } catch (err) {
     console.error("Errore al primo caricamento", err);
-    els.otherTime.textContent = "Impossibile contattare GitHub. Riprovo tra poco…";
+    els.otherTime.textContent = `Impossibile contattare GitHub (${err.message}). Riprovo tra poco…`;
   }
 
   STATE.pollTimer = setTimeout(pollLoop, POLL_MS);
