@@ -3,7 +3,7 @@
   "description": "Cloud Function per notificare l'altra persona quando cambia stato",
   "private": true,
   "engines": {
-    "node": "18"
+    "node": "20"
   },
   "main": "index.js",
   "scripts": {
