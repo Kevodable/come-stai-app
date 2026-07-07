@@ -1,6 +1,5 @@
 // firebase-config.js
-// Generato durante la sessione guidata di setup. NOTIFY_FUNCTION_URL va
-// aggiornato dopo il deploy della Cloud Function.
+// Config completo: VAPID key e URL della Cloud Function inclusi.
 
 self.FIREBASE_CONFIG = {
   apiKey: "AIzaSyCegRztKjKBq9DKQUmzcW7u0zeP90JIFGQ",
@@ -14,5 +13,5 @@ self.FIREBASE_CONFIG = {
 // VAPID key
 self.FIREBASE_VAPID_KEY = "BEPXV7OSxRlryxCx2kFQHDoYEgdB-ZB__nfCf9EKXSsPPccd_vWzdFkJyekjeQB_UVdefZWHXC8mZ-NjrUrnTEY";
 
-// URL della Cloud Function HTTP "sendMoodNotification", da riempire dopo il deploy
-self.NOTIFY_FUNCTION_URL = "INSERISCI_URL_CLOUD_FUNCTION";
+// URL della Cloud Function HTTP "sendMoodNotification"
+self.NOTIFY_FUNCTION_URL = "https://us-central1-come-stai-app-dae06.cloudfunctions.net/sendMoodNotification";
