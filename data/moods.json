@@ -1,7 +1,19 @@
 {
   "current": {
-    "personA": { "emoji": "😐", "timestamp": null },
-    "personB": { "emoji": "😐", "timestamp": null }
+    "personA": {
+      "emoji": "😊",
+      "timestamp": "2026-07-08T08:56:21.435Z"
+    },
+    "personB": {
+      "emoji": "😐",
+      "timestamp": null
+    }
   },
-  "history": []
+  "history": [
+    {
+      "person": "personA",
+      "emoji": "😊",
+      "timestamp": "2026-07-08T08:56:21.435Z"
+    }
+  ]
 }
