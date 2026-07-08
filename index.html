@@ -86,6 +86,7 @@
         <p class="other-emoji" id="other-emoji">🤔</p>
         <p class="other-label hidden" id="other-label"></p>
         <p class="other-time" id="other-time">in attesa di dati…</p>
+        <p class="other-note hidden" id="other-note"></p>
       </div>
 
       <button id="notify-btn" class="notify-btn">🔔 Attiva notifiche</button>
@@ -99,6 +100,16 @@
         <p class="intensity-mood" id="intensity-mood-label"></p>
         <p class="intensity-question">Con che intensità?</p>
         <div class="intensity-options" id="intensity-options"></div>
+
+        <textarea
+          id="mood-note-input"
+          class="note-input"
+          placeholder="Aggiungi una nota (facoltativo)"
+          maxlength="200"
+          rows="2"
+        ></textarea>
+
+        <button id="confirm-mood-btn" class="confirm-mood-btn" type="button" disabled>Salva</button>
       </div>
 
       <p id="save-status" class="save-status" aria-live="polite"></p>

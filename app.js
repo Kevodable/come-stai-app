@@ -59,6 +59,7 @@ const STATE = {
   historyShowCount: HISTORY_PAGE_SIZE,
   pollTimer: null,
   selectedMood: null,
+  selectedIntensity: null,
 };
 
 const els = {};
@@ -117,6 +118,7 @@ function cacheDom() {
   els.otherEmoji = document.getElementById("other-emoji");
   els.otherLabel = document.getElementById("other-label");
   els.otherTime = document.getElementById("other-time");
+  els.otherNote = document.getElementById("other-note");
   els.notifyBtn = document.getElementById("notify-btn");
   els.notifyHint = document.getElementById("notify-hint");
   els.moodGrid = document.getElementById("mood-grid");
@@ -124,6 +126,8 @@ function cacheDom() {
   els.intensityBack = document.getElementById("intensity-back");
   els.intensityMoodLabel = document.getElementById("intensity-mood-label");
   els.intensityOptions = document.getElementById("intensity-options");
+  els.moodNoteInput = document.getElementById("mood-note-input");
+  els.confirmMoodBtn = document.getElementById("confirm-mood-btn");
   els.saveStatus = document.getElementById("save-status");
   els.timeline = document.getElementById("timeline");
   els.timelineEmpty = document.getElementById("timeline-empty");
@@ -158,6 +162,11 @@ function bindEvents() {
   els.saveTokenBtn.addEventListener("click", saveGithubToken);
 
   els.intensityBack.addEventListener("click", hideIntensityPanel);
+
+  els.confirmMoodBtn.addEventListener("click", () => {
+    if (!STATE.selectedMood || !STATE.selectedIntensity) return;
+    setMyMood(STATE.selectedMood, STATE.selectedIntensity, els.moodNoteInput.value.trim());
+  });
 
   els.notifyBtn.addEventListener("click", enableNotifications);
 
@@ -265,15 +274,22 @@ function buildIntensityOptions() {
     btn.className = "intensity-btn";
     btn.dataset.value = level.value;
     btn.innerHTML = `<span class="intensity-dots">${intensityDots(level.value)}</span><span>${escapeHtml(level.label)}</span>`;
-    btn.addEventListener("click", () => {
-      if (STATE.selectedMood) setMyMood(STATE.selectedMood, level.value);
-    });
+    btn.addEventListener("click", () => selectIntensity(level.value));
     els.intensityOptions.appendChild(btn);
   });
 }
 
+function selectIntensity(value) {
+  STATE.selectedIntensity = value;
+  els.intensityOptions.querySelectorAll(".intensity-btn").forEach((b) => {
+    b.classList.toggle("selected", Number(b.dataset.value) === value);
+  });
+  els.confirmMoodBtn.disabled = false;
+}
+
 function disableIntensityButtons(disabled) {
   els.intensityOptions.querySelectorAll(".intensity-btn").forEach((b) => (b.disabled = disabled));
+  els.confirmMoodBtn.disabled = disabled || !STATE.selectedIntensity;
 }
 
 function intensityDots(value) {
@@ -282,13 +298,18 @@ function intensityDots(value) {
 
 function showIntensityPanel(option) {
   STATE.selectedMood = option;
+  STATE.selectedIntensity = null;
   els.intensityMoodLabel.textContent = `${option.emoji} ${option.label}`;
+  els.intensityOptions.querySelectorAll(".intensity-btn").forEach((b) => b.classList.remove("selected"));
+  els.moodNoteInput.value = "";
+  els.confirmMoodBtn.disabled = true;
   els.moodGrid.classList.add("hidden");
   els.intensityPanel.classList.remove("hidden");
 }
 
 function hideIntensityPanel() {
   STATE.selectedMood = null;
+  STATE.selectedIntensity = null;
   els.intensityPanel.classList.add("hidden");
   els.moodGrid.classList.remove("hidden");
 }
@@ -359,6 +380,12 @@ function renderOtherStatus(data) {
     els.otherLabel.classList.add("hidden");
   }
   els.otherTime.textContent = relativeShort(info.timestamp);
+  if (info.note) {
+    els.otherNote.textContent = `“${info.note}”`;
+    els.otherNote.classList.remove("hidden");
+  } else {
+    els.otherNote.classList.add("hidden");
+  }
 }
 
 function renderMySelection(data) {
@@ -419,7 +446,7 @@ function statusError(res, message) {
   return err;
 }
 
-async function setMyMood(option, intensity) {
+async function setMyMood(option, intensity, note) {
   if (!STATE.myPerson) return;
   disableIntensityButtons(true);
   setSaveStatus("Salvataggio in corso…");
@@ -432,6 +459,7 @@ async function setMyMood(option, intensity) {
       const { content, sha } = await getFileForWrite();
       const nowIso = new Date().toISOString();
       const entry = { emoji: option.emoji, label: option.label, intensity, timestamp: nowIso };
+      if (note) entry.note = note;
 
       content.current = content.current || {};
       content.current[STATE.myPerson] = entry;
@@ -450,7 +478,7 @@ async function setMyMood(option, intensity) {
       hideIntensityPanel();
       setSaveStatus("Salvato ✓");
       setTimeout(() => setSaveStatus(""), 2000);
-      notifyOtherPerson(STATE.myPerson, option.emoji, option.label, intensity);
+      notifyOtherPerson(STATE.myPerson, option.emoji, option.label, intensity, note);
       lastErr = null;
       break;
     } catch (err) {
@@ -555,6 +583,7 @@ function renderTimelineEntry(ev, now) {
       <div class="timeline-body">
         <p class="timeline-person">${escapeHtml(name)}</p>
         ${meta ? `<p class="timeline-meta">${meta}</p>` : ""}
+        ${ev.note ? `<p class="timeline-note">“${escapeHtml(ev.note)}”</p>` : ""}
         <p class="timeline-when">${escapeHtml(when)}</p>
       </div>
     </div>
@@ -711,14 +740,14 @@ async function saveFcmToken(token) {
     );
 }
 
-async function notifyOtherPerson(fromPerson, emoji, label, intensity) {
+async function notifyOtherPerson(fromPerson, emoji, label, intensity, note) {
   const url = self.NOTIFY_FUNCTION_URL;
   if (!url) return;
   try {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fromPerson, emoji, label, intensity }),
+      body: JSON.stringify({ fromPerson, emoji, label, intensity, note }),
     });
   } catch (err) {
     console.warn("Notifica push non inviata", err);

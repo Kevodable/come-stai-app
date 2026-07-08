@@ -182,6 +182,14 @@ main {
   color: var(--ink-soft);
 }
 
+.other-note {
+  margin: 8px 0 0;
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
 .notify-btn {
   display: block;
   width: 100%;
@@ -299,6 +307,51 @@ main {
   color: var(--accent);
 }
 
+.intensity-btn.selected {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(232, 115, 95, 0.4);
+}
+
+.intensity-btn.selected .intensity-dots { color: #fff; }
+
+.note-input {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--card);
+  color: var(--ink);
+  resize: none;
+}
+
+.note-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.confirm-mood-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.confirm-mood-btn:disabled {
+  background: var(--accent-soft);
+  color: #b98b7c;
+}
+
+.confirm-mood-btn:not(:disabled):active { transform: scale(0.98); }
+
 .save-status {
   text-align: center;
   min-height: 20px;
@@ -378,6 +431,14 @@ main {
   font-weight: 600;
   color: var(--accent);
   margin: 0 0 2px;
+}
+
+.timeline-note {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 0 0 4px;
+  line-height: 1.4;
 }
 
 .timeline-when {

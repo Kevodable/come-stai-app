@@ -38,7 +38,7 @@ exports.sendMoodNotification = functions.https.onRequest(async (req, res) => {
     return;
   }
 
-  const { fromPerson, emoji, label, intensity } = req.body || {};
+  const { fromPerson, emoji, label, intensity, note } = req.body || {};
   if (!fromPerson || !emoji || !PERSON_NAMES[fromPerson]) {
     res.status(400).json({ error: "fromPerson ('personA'|'personB') ed emoji sono obbligatori" });
     return;
@@ -56,9 +56,10 @@ exports.sendMoodNotification = functions.https.onRequest(async (req, res) => {
     const token = tokenDoc.data().token;
     const fromName = PERSON_NAMES[fromPerson];
     const intensityWord = { 1: "lieve", 2: "media", 3: "forte" }[intensity];
-    const body = label
+    let body = label
       ? `${fromName} ora si sente ${emoji} ${label}${intensityWord ? ` (${intensityWord})` : ""}`
       : `${fromName} ora si sente ${emoji}`;
+    if (note) body += ` — “${note}”`;
 
     await admin.messaging().send({
       token,
