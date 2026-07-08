@@ -84,6 +84,7 @@
       <div class="other-card">
         <p class="other-name" id="other-name">—</p>
         <p class="other-emoji" id="other-emoji">🤔</p>
+        <p class="other-label hidden" id="other-label"></p>
         <p class="other-time" id="other-time">in attesa di dati…</p>
       </div>
 
@@ -92,6 +93,13 @@
 
       <p class="mood-label">E tu, come stai?</p>
       <div class="mood-grid" id="mood-grid"></div>
+
+      <div id="intensity-panel" class="intensity-panel hidden">
+        <button id="intensity-back" class="intensity-back" type="button">← Cambia emozione</button>
+        <p class="intensity-mood" id="intensity-mood-label"></p>
+        <p class="intensity-question">Con che intensità?</p>
+        <div class="intensity-options" id="intensity-options"></div>
+      </div>
 
       <p id="save-status" class="save-status" aria-live="polite"></p>
     </section>

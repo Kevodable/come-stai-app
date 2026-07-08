@@ -38,7 +38,7 @@ exports.sendMoodNotification = functions.https.onRequest(async (req, res) => {
     return;
   }
 
-  const { fromPerson, emoji } = req.body || {};
+  const { fromPerson, emoji, label, intensity } = req.body || {};
   if (!fromPerson || !emoji || !PERSON_NAMES[fromPerson]) {
     res.status(400).json({ error: "fromPerson ('personA'|'personB') ed emoji sono obbligatori" });
     return;
@@ -55,12 +55,16 @@ exports.sendMoodNotification = functions.https.onRequest(async (req, res) => {
 
     const token = tokenDoc.data().token;
     const fromName = PERSON_NAMES[fromPerson];
+    const intensityWord = { 1: "lieve", 2: "media", 3: "forte" }[intensity];
+    const body = label
+      ? `${fromName} ora si sente ${emoji} ${label}${intensityWord ? ` (${intensityWord})` : ""}`
+      : `${fromName} ora si sente ${emoji}`;
 
     await admin.messaging().send({
       token,
       notification: {
         title: "Come stai?",
-        body: `${fromName} ora si sente ${emoji}`,
+        body,
       },
       webpush: {
         fcmOptions: { link: "/" },

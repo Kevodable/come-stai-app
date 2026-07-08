@@ -163,9 +163,17 @@ main {
 }
 
 .other-emoji {
-  margin: 10px 0 6px;
+  margin: 10px 0 2px;
   font-size: 88px;
   line-height: 1;
+}
+
+.other-label {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 1px;
 }
 
 .other-time {
@@ -203,27 +211,92 @@ main {
 
 .mood-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
 .mood-btn {
-  aspect-ratio: 1;
-  font-size: 30px;
   background: var(--card);
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(120, 80, 60, 0.08);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 5px;
+  padding: 16px 6px;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
-.mood-btn:active { transform: scale(0.92); }
+.mood-emoji { font-size: 28px; line-height: 1; }
+
+.mood-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.mood-btn:active { transform: scale(0.95); }
 
 .mood-btn.selected {
   background: var(--accent);
   box-shadow: 0 6px 16px rgba(232, 115, 95, 0.4);
+}
+
+.mood-btn.selected .mood-text { color: #fff; }
+
+/* ---------- Selezione intensita' ---------- */
+
+.intensity-panel { margin-top: 4px; }
+
+.intensity-back {
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 4px 0;
+  margin-bottom: 10px;
+}
+
+.intensity-mood {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 4px;
+}
+
+.intensity-question {
+  text-align: center;
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+
+.intensity-options {
+  display: flex;
+  gap: 10px;
+}
+
+.intensity-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 6px;
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(120, 80, 60, 0.08);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.intensity-btn:active { transform: scale(0.96); }
+
+.intensity-dots {
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: var(--accent);
 }
 
 .save-status {
@@ -297,6 +370,13 @@ main {
 .timeline-person {
   font-weight: 700;
   font-size: 14px;
+  margin: 0 0 2px;
+}
+
+.timeline-meta {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--accent);
   margin: 0 0 2px;
 }
 

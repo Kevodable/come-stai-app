@@ -19,8 +19,23 @@ const PERSON_NAMES = {
   personB: "Persona B",
 };
 
-// Emoji disponibili per impostare il proprio stato
-const MOOD_EMOJIS = ["😊", "😍", "😴", "😢", "😡", "😰", "🥳", "😌", "🤒", "😐"];
+// Emozioni disponibili per impostare il proprio stato - curata sulle
+// emozioni piu' frequenti in un check-in di coppia, non un elenco esaustivo.
+const MOOD_OPTIONS = [
+  { key: "felicita", emoji: "😊", label: "Felicità" },
+  { key: "tristezza", emoji: "😢", label: "Tristezza" },
+  { key: "stanchezza", emoji: "😴", label: "Stanchezza" },
+  { key: "stress", emoji: "😩", label: "Stress" },
+  { key: "ansia", emoji: "😰", label: "Ansia" },
+  { key: "rabbia", emoji: "😡", label: "Rabbia" },
+];
+
+// Livelli di intensita' associabili a ogni emozione
+const INTENSITY_LEVELS = [
+  { value: 1, label: "Lieve" },
+  { value: 2, label: "Media" },
+  { value: 3, label: "Forte" },
+];
 
 const POLL_MS = 18000; // 18s: dentro il range 15-20s richiesto
 const HISTORY_PAGE_SIZE = 50;
@@ -43,6 +58,7 @@ const STATE = {
   lastData: null,
   historyShowCount: HISTORY_PAGE_SIZE,
   pollTimer: null,
+  selectedMood: null,
 };
 
 const els = {};
@@ -61,6 +77,7 @@ async function init() {
 
   cacheDom();
   buildMoodGrid();
+  buildIntensityOptions();
   bindEvents();
   initProfile();
   registerServiceWorker();
@@ -98,10 +115,15 @@ function cacheDom() {
   els.switchProfile = document.getElementById("switch-profile");
   els.otherName = document.getElementById("other-name");
   els.otherEmoji = document.getElementById("other-emoji");
+  els.otherLabel = document.getElementById("other-label");
   els.otherTime = document.getElementById("other-time");
   els.notifyBtn = document.getElementById("notify-btn");
   els.notifyHint = document.getElementById("notify-hint");
   els.moodGrid = document.getElementById("mood-grid");
+  els.intensityPanel = document.getElementById("intensity-panel");
+  els.intensityBack = document.getElementById("intensity-back");
+  els.intensityMoodLabel = document.getElementById("intensity-mood-label");
+  els.intensityOptions = document.getElementById("intensity-options");
   els.saveStatus = document.getElementById("save-status");
   els.timeline = document.getElementById("timeline");
   els.timelineEmpty = document.getElementById("timeline-empty");
@@ -134,6 +156,8 @@ function bindEvents() {
   });
 
   els.saveTokenBtn.addEventListener("click", saveGithubToken);
+
+  els.intensityBack.addEventListener("click", hideIntensityPanel);
 
   els.notifyBtn.addEventListener("click", enableNotifications);
 
@@ -217,19 +241,56 @@ function otherPersonKey() {
 
 function buildMoodGrid() {
   els.moodGrid.innerHTML = "";
-  MOOD_EMOJIS.forEach((emoji) => {
+  MOOD_OPTIONS.forEach((option) => {
     const btn = document.createElement("button");
     btn.className = "mood-btn";
     btn.type = "button";
-    btn.dataset.emoji = emoji;
-    btn.textContent = emoji;
-    btn.addEventListener("click", () => setMyMood(emoji));
+    btn.dataset.emoji = option.emoji;
+    btn.dataset.key = option.key;
+    btn.innerHTML = `<span class="mood-emoji">${option.emoji}</span><span class="mood-text">${escapeHtml(option.label)}</span>`;
+    btn.addEventListener("click", () => showIntensityPanel(option));
     els.moodGrid.appendChild(btn);
   });
 }
 
 function disableMoodGrid(disabled) {
   els.moodGrid.querySelectorAll(".mood-btn").forEach((b) => (b.disabled = disabled));
+}
+
+function buildIntensityOptions() {
+  els.intensityOptions.innerHTML = "";
+  INTENSITY_LEVELS.forEach((level) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "intensity-btn";
+    btn.dataset.value = level.value;
+    btn.innerHTML = `<span class="intensity-dots">${intensityDots(level.value)}</span><span>${escapeHtml(level.label)}</span>`;
+    btn.addEventListener("click", () => {
+      if (STATE.selectedMood) setMyMood(STATE.selectedMood, level.value);
+    });
+    els.intensityOptions.appendChild(btn);
+  });
+}
+
+function disableIntensityButtons(disabled) {
+  els.intensityOptions.querySelectorAll(".intensity-btn").forEach((b) => (b.disabled = disabled));
+}
+
+function intensityDots(value) {
+  return "●".repeat(value) + "○".repeat(INTENSITY_LEVELS.length - value);
+}
+
+function showIntensityPanel(option) {
+  STATE.selectedMood = option;
+  els.intensityMoodLabel.textContent = `${option.emoji} ${option.label}`;
+  els.moodGrid.classList.add("hidden");
+  els.intensityPanel.classList.remove("hidden");
+}
+
+function hideIntensityPanel() {
+  STATE.selectedMood = null;
+  els.intensityPanel.classList.add("hidden");
+  els.moodGrid.classList.remove("hidden");
 }
 
 function setSaveStatus(text) {
@@ -290,6 +351,13 @@ function renderOtherStatus(data) {
   const info = (data.current && data.current[other]) || {};
   els.otherName.textContent = PERSON_NAMES[other];
   els.otherEmoji.textContent = info.emoji || "🤔";
+  if (info.label) {
+    const dots = info.intensity ? ` ${intensityDots(info.intensity)}` : "";
+    els.otherLabel.textContent = `${info.label}${dots}`;
+    els.otherLabel.classList.remove("hidden");
+  } else {
+    els.otherLabel.classList.add("hidden");
+  }
   els.otherTime.textContent = relativeShort(info.timestamp);
 }
 
@@ -351,9 +419,9 @@ function statusError(res, message) {
   return err;
 }
 
-async function setMyMood(emoji) {
+async function setMyMood(option, intensity) {
   if (!STATE.myPerson) return;
-  disableMoodGrid(true);
+  disableIntensityButtons(true);
   setSaveStatus("Salvataggio in corso…");
 
   const maxAttempts = 3;
@@ -363,19 +431,26 @@ async function setMyMood(emoji) {
     try {
       const { content, sha } = await getFileForWrite();
       const nowIso = new Date().toISOString();
+      const entry = { emoji: option.emoji, label: option.label, intensity, timestamp: nowIso };
 
       content.current = content.current || {};
-      content.current[STATE.myPerson] = { emoji, timestamp: nowIso };
+      content.current[STATE.myPerson] = entry;
       content.history = content.history || [];
-      content.history.push({ person: STATE.myPerson, emoji, timestamp: nowIso });
+      content.history.push({ person: STATE.myPerson, ...entry });
 
-      await putFile(content, sha, `Aggiorna stato di ${PERSON_NAMES[STATE.myPerson]}: ${emoji}`);
+      const intensityLabel = INTENSITY_LEVELS.find((l) => l.value === intensity).label;
+      await putFile(
+        content,
+        sha,
+        `Aggiorna stato di ${PERSON_NAMES[STATE.myPerson]}: ${option.label} (${intensityLabel})`
+      );
 
       STATE.lastData = content;
       renderAll(content);
+      hideIntensityPanel();
       setSaveStatus("Salvato ✓");
       setTimeout(() => setSaveStatus(""), 2000);
-      notifyOtherPerson(STATE.myPerson, emoji);
+      notifyOtherPerson(STATE.myPerson, option.emoji, option.label, intensity);
       lastErr = null;
       break;
     } catch (err) {
@@ -395,7 +470,7 @@ async function setMyMood(emoji) {
     setSaveStatus(`⚠️ Salvataggio non riuscito (${detail}). Riprova.`);
   }
 
-  disableMoodGrid(false);
+  disableIntensityButtons(false);
 }
 
 // Base64 <-> UTF-8 (necessario per via delle emoji nel JSON)
@@ -470,12 +545,16 @@ function renderTimelineEntry(ev, now) {
     : isSameDay(d, yesterdayOf(now))
     ? `ieri alle ${timeHM(d)}`
     : `alle ${timeHM(d)}`;
+  const meta = ev.label
+    ? `${escapeHtml(ev.label)}${ev.intensity ? " " + escapeHtml(intensityDots(ev.intensity)) : ""}`
+    : "";
 
   return `
     <div class="timeline-entry">
       <div class="timeline-emoji">${escapeHtml(ev.emoji)}</div>
       <div class="timeline-body">
         <p class="timeline-person">${escapeHtml(name)}</p>
+        ${meta ? `<p class="timeline-meta">${meta}</p>` : ""}
         <p class="timeline-when">${escapeHtml(when)}</p>
       </div>
     </div>
@@ -632,14 +711,14 @@ async function saveFcmToken(token) {
     );
 }
 
-async function notifyOtherPerson(fromPerson, emoji) {
+async function notifyOtherPerson(fromPerson, emoji, label, intensity) {
   const url = self.NOTIFY_FUNCTION_URL;
   if (!url) return;
   try {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fromPerson, emoji }),
+      body: JSON.stringify({ fromPerson, emoji, label, intensity }),
     });
   } catch (err) {
     console.warn("Notifica push non inviata", err);
