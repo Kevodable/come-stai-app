@@ -4,5 +4,6 @@ self.GITHUB_CONFIG = {
   repo: "come-stai-app",
   branch: "main",
   path: "data/moods.json",
-  token: "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",
+    token: "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",
+
 };
