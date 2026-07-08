@@ -346,10 +346,13 @@ function cacheBust(url) {
 }
 
 async function fetchMoods() {
-  const headers = {};
-  // Serve solo se il repository e' privato; su repo pubblico e' innocuo.
-  if (STATE.githubToken) headers.Authorization = `Bearer ${STATE.githubToken}`;
-  const res = await fetch(cacheBust(rawUrl()), { headers, cache: "no-store" });
+  // Niente header Authorization qui: il repository e' pubblico e non serve,
+  // e aggiungerlo forza il browser a un preflight CORS verso
+  // raw.githubusercontent.com che su Safari a volte fallisce con un
+  // generico "Load failed". Se in futuro il repo diventasse privato,
+  // la lettura andrebbe fatta tramite le GitHub Contents API invece che
+  // raw.githubusercontent.com.
+  const res = await fetch(cacheBust(rawUrl()), { cache: "no-store" });
   if (!res.ok) throw new Error(`Lettura fallita (${res.status})`);
   return res.json();
 }
