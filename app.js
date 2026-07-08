@@ -87,7 +87,7 @@ async function init() {
   registerServiceWorker();
 
   try {
-    const data = await fetchMoods();
+    const data = await fetchMoodsAtStartup();
     handleIncomingData(data);
   } catch (err) {
     console.error("Errore al primo caricamento", err);
@@ -352,6 +352,22 @@ async function fetchMoods() {
   const res = await fetch(cacheBust(rawUrl()), { headers, cache: "no-store" });
   if (!res.ok) throw new Error(`Lettura fallita (${res.status})`);
   return res.json();
+}
+
+// All'avvio "a freddo" di una PWA su iOS, la primissima richiesta di rete
+// puo' fallire con un generico errore di rete (il sistema non e' ancora
+// pronto) e riuscire subito dopo. Ritentiamo un paio di volte con una
+// breve pausa prima di arrenderci, invece di aspettare i 18s del polling.
+async function fetchMoodsAtStartup() {
+  const attempts = 3;
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      return await fetchMoods();
+    } catch (err) {
+      if (i === attempts) throw err;
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+    }
+  }
 }
 
 async function pollLoop() {
