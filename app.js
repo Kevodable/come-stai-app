@@ -228,7 +228,7 @@ function saveGithubToken() {
     els.tokenError.classList.remove("hidden");
     return;
   }
-  if (!/^gh[a-z]+_/.test(value)) {
+  if (!/^(github_pat_|ghp_|gho_|ghu_|ghs_|ghr_)/.test(value)) {
     els.tokenError.textContent =
       "Questo non sembra un token GitHub valido (dovrebbe iniziare con \"github_pat_\"). " +
       "Controlla di aver incollato tutto il testo e riprova - su iPhone attento a non toccare " +
