@@ -9,8 +9,8 @@
     "personB": {
       "emoji": "😴",
       "label": "Stanchezza",
-      "intensity": 2,
-      "timestamp": "2026-07-08T13:18:33.823Z"
+      "intensity": 1,
+      "timestamp": "2026-07-08T18:57:59.761Z"
     }
   },
   "history": [
@@ -53,6 +53,13 @@
       "label": "Stress",
       "intensity": 2,
       "timestamp": "2026-07-08T18:00:53.085Z"
+    },
+    {
+      "person": "personB",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 1,
+      "timestamp": "2026-07-08T18:57:59.761Z"
     }
   ]
 }
