@@ -1,10 +1,10 @@
 {
   "current": {
     "personA": {
-      "emoji": "😢",
-      "label": "Tristezza",
+      "emoji": "😩",
+      "label": "Stress",
       "intensity": 2,
-      "timestamp": "2026-07-08T12:30:12.300Z"
+      "timestamp": "2026-07-08T18:00:53.085Z"
     },
     "personB": {
       "emoji": "😴",
@@ -46,6 +46,13 @@
       "label": "Stanchezza",
       "intensity": 2,
       "timestamp": "2026-07-08T13:18:33.823Z"
+    },
+    {
+      "person": "personA",
+      "emoji": "😩",
+      "label": "Stress",
+      "intensity": 2,
+      "timestamp": "2026-07-08T18:00:53.085Z"
     }
   ]
 }
