@@ -7,8 +7,10 @@
       "timestamp": "2026-07-08T12:30:12.300Z"
     },
     "personB": {
-      "emoji": "😐",
-      "timestamp": null
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 1,
+      "timestamp": "2026-07-08T13:03:37.629Z"
     }
   },
   "history": [
@@ -30,6 +32,13 @@
       "label": "Tristezza",
       "intensity": 2,
       "timestamp": "2026-07-08T12:30:12.300Z"
+    },
+    {
+      "person": "personB",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 1,
+      "timestamp": "2026-07-08T13:03:37.629Z"
     }
   ]
 }
