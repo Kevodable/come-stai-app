@@ -226,6 +226,14 @@ function saveGithubToken() {
     els.tokenError.classList.remove("hidden");
     return;
   }
+  if (!/^gh[a-z]+_[A-Za-z0-9_]+$/.test(value)) {
+    els.tokenError.textContent =
+      "Questo non sembra un token GitHub valido (dovrebbe iniziare con \"github_pat_\"). " +
+      "Controlla di aver incollato tutto il testo e riprova - su iPhone attento a non toccare " +
+      "per sbaglio il suggerimento \"Usa password sicura\" sopra la tastiera.";
+    els.tokenError.classList.remove("hidden");
+    return;
+  }
   localStorage.setItem(TOKEN_STORAGE_KEY, value);
   STATE.githubToken = value;
   els.tokenError.classList.add("hidden");
