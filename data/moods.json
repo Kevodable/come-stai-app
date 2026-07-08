@@ -1,10 +1,10 @@
 {
   "current": {
     "personA": {
-      "emoji": "😊",
-      "label": "Felicità",
+      "emoji": "😢",
+      "label": "Tristezza",
       "intensity": 2,
-      "timestamp": "2026-07-08T12:30:03.088Z"
+      "timestamp": "2026-07-08T12:30:12.300Z"
     },
     "personB": {
       "emoji": "😐",
@@ -23,6 +23,13 @@
       "label": "Felicità",
       "intensity": 2,
       "timestamp": "2026-07-08T12:30:03.088Z"
+    },
+    {
+      "person": "personA",
+      "emoji": "😢",
+      "label": "Tristezza",
+      "intensity": 2,
+      "timestamp": "2026-07-08T12:30:12.300Z"
     }
   ]
 }
