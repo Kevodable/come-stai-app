@@ -15,8 +15,8 @@ admin.initializeApp();
 
 // Deve rimanere in sync con PERSON_NAMES in app.js
 const PERSON_NAMES = {
-  personA: "Persona A",
-  personB: "Persona B",
+  personA: "Giorgia",
+  personB: "Kevin",
 };
 
 function otherPerson(person) {

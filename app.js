@@ -15,8 +15,8 @@
 // Nomi visualizzati dei due profili fissi. Modifica pure questi valori:
 // tutto il resto del codice li legge da qui.
 const PERSON_NAMES = {
-  personA: "Persona A",
-  personB: "Persona B",
+  personA: "Giorgia",
+  personB: "Kevin",
 };
 
 // Emozioni disponibili per impostare il proprio stato - curata sulle
