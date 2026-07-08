@@ -8,10 +8,11 @@
       "note": "Ti amo all’infinito"
     },
     "personB": {
-      "emoji": "😴",
-      "label": "Stanchezza",
-      "intensity": 1,
-      "timestamp": "2026-07-08T18:57:59.761Z"
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-07-08T19:33:30.044Z",
+      "note": "Ti amo all’infinito ❤️"
     }
   },
   "history": [
@@ -69,6 +70,14 @@
       "intensity": 3,
       "timestamp": "2026-07-08T19:32:52.034Z",
       "note": "Ti amo all’infinito"
+    },
+    {
+      "person": "personB",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-07-08T19:33:30.044Z",
+      "note": "Ti amo all’infinito ❤️"
     }
   ]
 }
