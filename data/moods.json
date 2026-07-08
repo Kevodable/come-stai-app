@@ -1,11 +1,10 @@
 {
   "current": {
     "personA": {
-      "emoji": "😊",
-      "label": "Felicità",
+      "emoji": "😴",
+      "label": "Stanchezza",
       "intensity": 3,
-      "timestamp": "2026-07-08T19:32:52.034Z",
-      "note": "Ti amo all’infinito"
+      "timestamp": "2026-07-08T19:53:35.602Z"
     },
     "personB": {
       "emoji": "😊",
@@ -78,6 +77,13 @@
       "intensity": 3,
       "timestamp": "2026-07-08T19:33:30.044Z",
       "note": "Ti amo all’infinito ❤️"
+    },
+    {
+      "person": "personA",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 3,
+      "timestamp": "2026-07-08T19:53:35.602Z"
     }
   ]
 }
