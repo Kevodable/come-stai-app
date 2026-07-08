@@ -25,6 +25,7 @@ const MOOD_EMOJIS = ["😊", "😍", "😴", "😢", "😡", "😰", "🥳", "�
 const POLL_MS = 18000; // 18s: dentro il range 15-20s richiesto
 const HISTORY_PAGE_SIZE = 50;
 const PROFILE_STORAGE_KEY = "comeStaiApp.myPerson";
+const TOKEN_STORAGE_KEY = "comeStaiApp.githubToken";
 
 const GIORNI = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
 const MESI = [
@@ -38,6 +39,7 @@ const MESI = [
 
 const STATE = {
   myPerson: null,
+  githubToken: null,
   lastData: null,
   historyShowCount: HISTORY_PAGE_SIZE,
   pollTimer: null,
@@ -80,13 +82,18 @@ async function init() {
 function isConfigPresent() {
   const gh = self.GITHUB_CONFIG;
   const fb = self.FIREBASE_CONFIG;
-  if (!gh || !gh.token || gh.token.startsWith("INSERISCI")) return false;
+  if (!gh || !gh.owner || !gh.repo) return false;
   if (!fb || !fb.apiKey || fb.apiKey.startsWith("INSERISCI")) return false;
   return true;
 }
 
 function cacheDom() {
   els.whoAreYou = document.getElementById("who-are-you");
+  els.githubTokenSetup = document.getElementById("github-token-setup");
+  els.githubTokenInput = document.getElementById("github-token-input");
+  els.saveTokenBtn = document.getElementById("save-token-btn");
+  els.tokenError = document.getElementById("token-error");
+  els.updateToken = document.getElementById("update-token");
   els.app = document.getElementById("app");
   els.switchProfile = document.getElementById("switch-profile");
   els.otherName = document.getElementById("other-name");
@@ -103,7 +110,7 @@ function cacheDom() {
 }
 
 function bindEvents() {
-  document.querySelectorAll(".who-btn").forEach((btn) => {
+  document.querySelectorAll("#who-are-you .who-btn").forEach((btn) => {
     btn.addEventListener("click", () => chooseProfile(btn.dataset.person));
   });
 
@@ -115,6 +122,18 @@ function bindEvents() {
       els.whoAreYou.classList.remove("hidden");
     }
   });
+
+  els.updateToken.addEventListener("click", () => {
+    if (confirm("Aggiornare il token GitHub su questo dispositivo?")) {
+      localStorage.removeItem(TOKEN_STORAGE_KEY);
+      STATE.githubToken = null;
+      els.githubTokenInput.value = "";
+      els.app.classList.add("hidden");
+      els.githubTokenSetup.classList.remove("hidden");
+    }
+  });
+
+  els.saveTokenBtn.addEventListener("click", saveGithubToken);
 
   els.notifyBtn.addEventListener("click", enableNotifications);
 
@@ -144,7 +163,7 @@ function initProfile() {
   const saved = localStorage.getItem(PROFILE_STORAGE_KEY);
   if (saved === "personA" || saved === "personB") {
     STATE.myPerson = saved;
-    showApp();
+    maybeShowTokenSetup();
   } else {
     els.whoAreYou.classList.remove("hidden");
   }
@@ -153,11 +172,37 @@ function initProfile() {
 function chooseProfile(person) {
   localStorage.setItem(PROFILE_STORAGE_KEY, person);
   STATE.myPerson = person;
+  els.whoAreYou.classList.add("hidden");
+  maybeShowTokenSetup();
+}
+
+function maybeShowTokenSetup() {
+  const saved = localStorage.getItem(TOKEN_STORAGE_KEY);
+  if (saved) {
+    STATE.githubToken = saved;
+    showApp();
+  } else {
+    els.githubTokenSetup.classList.remove("hidden");
+  }
+}
+
+function saveGithubToken() {
+  const value = els.githubTokenInput.value.trim();
+  if (!value) {
+    els.tokenError.textContent = "Inserisci il token prima di salvare.";
+    els.tokenError.classList.remove("hidden");
+    return;
+  }
+  localStorage.setItem(TOKEN_STORAGE_KEY, value);
+  STATE.githubToken = value;
+  els.tokenError.classList.add("hidden");
+  els.githubTokenSetup.classList.add("hidden");
   showApp();
 }
 
 function showApp() {
   els.whoAreYou.classList.add("hidden");
+  els.githubTokenSetup.classList.add("hidden");
   els.app.classList.remove("hidden");
   if (STATE.lastData) renderAll(STATE.lastData);
 }
@@ -206,10 +251,9 @@ function cacheBust(url) {
 }
 
 async function fetchMoods() {
-  const c = self.GITHUB_CONFIG;
   const headers = {};
   // Serve solo se il repository e' privato; su repo pubblico e' innocuo.
-  if (c.token) headers.Authorization = `Bearer ${c.token}`;
+  if (STATE.githubToken) headers.Authorization = `Bearer ${STATE.githubToken}`;
   const res = await fetch(cacheBust(rawUrl()), { headers, cache: "no-store" });
   if (!res.ok) throw new Error(`Lettura fallita (${res.status})`);
   return res.json();
@@ -269,7 +313,7 @@ async function getFileForWrite() {
   const c = self.GITHUB_CONFIG;
   const res = await fetch(`${contentsApiUrl()}?ref=${encodeURIComponent(c.branch)}`, {
     headers: {
-      Authorization: `Bearer ${c.token}`,
+      Authorization: `Bearer ${STATE.githubToken}`,
       Accept: "application/vnd.github+json",
     },
     cache: "no-store",
@@ -291,7 +335,7 @@ async function putFile(newContentObj, sha, message) {
   const res = await fetch(contentsApiUrl(), {
     method: "PUT",
     headers: {
-      Authorization: `Bearer ${c.token}`,
+      Authorization: `Bearer ${STATE.githubToken}`,
       Accept: "application/vnd.github+json",
       "Content-Type": "application/json",
     },

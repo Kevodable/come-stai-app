@@ -1,9 +1,23 @@
 // github-config.js
-self.GITHUB_CONFIG = {
-  owner: "kevodable",
-  repo: "come-stai-app",
-  branch: "main",
-  path: "data/moods.json",
-    token: "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",
+//
+// Nessun segreto qui dentro: solo il puntatore al repository/file dati.
+// Il token GitHub NON vive in questo file - ogni persona lo inserisce una
+// volta sola nell'app stessa (schermata "Token GitHub" al primo accesso),
+// e resta salvato solo in locale (localStorage) sul proprio dispositivo.
+// Questo evita che un vero token finisca mai nella cronologia del
+// repository - GitHub revoca automaticamente i propri token se li rileva
+// esposti in un repo pubblico, quindi va tenuto fuori da qui.
 
+self.GITHUB_CONFIG = {
+  // Proprietario del repository (utente o organizzazione GitHub)
+  owner: "kevodable",
+
+  // Nome del repository che contiene data/moods.json
+  repo: "come-stai-app",
+
+  // Branch su cui vive il file dati
+  branch: "main",
+
+  // Percorso del file JSON dentro il repository
+  path: "data/moods.json",
 };

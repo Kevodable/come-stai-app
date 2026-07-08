@@ -1,7 +1,3 @@
-# Config reali con segreti - NON committare mai
-github-config.js
-firebase-config.js
-
 # Firebase Functions
 functions/node_modules/
 functions/.env

@@ -16,20 +16,19 @@ manifest.json                  manifest PWA
 icons/                         icone 192/512/512-maskable/apple-touch-icon
 data/moods.json                dati correnti + storico (stato attuale + history)
 
-github-config.example.js       TEMPLATE - copialo in github-config.js
-firebase-config.example.js     TEMPLATE - copialo in firebase-config.js
+github-config.js                owner/repo/branch/path del file dati (nessun segreto)
+firebase-config.js               config Firebase, VAPID key, URL Cloud Function (nessun segreto)
 
-functions/index.js             Cloud Function HTTP "sendMoodNotification"
+functions/index.js              Cloud Function HTTP "sendMoodNotification"
 functions/package.json
 firebase.json
 firestore.rules
 firestore.indexes.json
 ```
 
-`github-config.js` e `firebase-config.js` sono nel `.gitignore`: **non
-verranno mai committati** dal tuo git locale. Leggi bene la sezione
-"Nota importante sul deploy dei file di configurazione" più sotto, perche'
-riguarda direttamente come funziona (o non funziona) il sito online.
+`github-config.js` e `firebase-config.js` sono file normali, committati nel
+repository: non contengono nessun segreto (vedi sezione sul token subito
+sotto per il perche').
 
 ---
 
@@ -45,45 +44,34 @@ riguarda direttamente come funziona (o non funziona) il sito online.
   una Cloud Function Firebase che legge da Firestore il token FCM
   dell'altra persona e le invia una push ("[Nome] ora si sente 😴").
 
-## ⚠️ Nota di sicurezza sul token GitHub
+## 🔑 Il token GitHub si inserisce nell'app, non nei file
 
-Il Personal Access Token viene usato **lato client**, cioe' dentro il
-codice che gira nel browser di chi visita il sito. Questo significa che
-**chiunque apra gli strumenti sviluppatore puo' leggerlo**. Per questo:
+Il Personal Access Token **non vive in nessun file del repository**. Al
+primo accesso, l'app chiede "Chi sei?" e subito dopo chiede il token
+GitHub: lo incolli una volta sola e resta salvato solo in `localStorage`,
+sul dispositivo che stai usando (esattamente come la scelta del profilo).
+Ogni dispositivo (il tuo telefono e quello dell'altra persona) lo inserisce
+una volta, indipendentemente.
 
-1. Il token deve essere **fine-grained** e avere **solo** il permesso
+Perche' questa scelta invece di mettere il token in un file di config:
+**GitHub revoca automaticamente i propri Personal Access Token se li rileva
+esposti in un repository pubblico** (anche bypassando l'avviso di secret
+scanning al momento del commit) - quindi un token scritto in un file
+committato smetterebbe di funzionare quasi subito. Tenendolo solo in
+`localStorage` lato client, non finisce mai nella cronologia git e questo
+problema non si presenta.
+
+Il token resta comunque visibile a chi ispeziona il dispositivo/browser di
+chi lo ha inserito (es. da DevTools) - per questo:
+
+1. Deve essere **fine-grained** e avere **solo** il permesso
    "Contents: Read and write" su **questo unico repository**.
-2. Se possibile, tieni il repository dei dati **privato**.
-3. Puoi revocare il token in qualsiasi momento da
-   github.com/settings/tokens?type=beta, senza dover toccare il codice:
-   basta rigenerarne uno nuovo e aggiornare `github-config.js`.
-
-## ⚠️ Nota importante sul deploy dei file di configurazione
-
-`github-config.js` e `firebase-config.js` sono ignorati da git apposta,
-cosi' non finiscono per sbaglio nei tuoi commit quotidiani. **Ma** GitHub
-Pages serve solo cio' che e' effettivamente presente nel repository: se
-questi due file non ci sono, il sito pubblicato non funzionera' (mancano
-token e configurazione Firebase).
-
-Quindi, ogni volta che pubblichi o aggiorni il sito, devi far arrivare
-questi due file (con i valori reali) DENTRO al repository su GitHub,
-tenendoli pero' fuori dal tuo storico di commit locale. Due modi semplici:
-
-- **Opzione A (consigliata) - upload manuale via interfaccia web GitHub**:
-  vai sul repository su github.com → "Add file" → "Upload files" →
-  trascina i tuoi `github-config.js` e `firebase-config.js` gia' compilati
-  → commit direttamente dal browser. Non tocchi mai il tuo git locale, il
-  file non compare mai nei tuoi `git log`/`git push` di routine.
-- **Opzione B - da terminale, solo quando serve**: `git add -f
-  github-config.js firebase-config.js && git commit -m "config" && git
-  push`. Il flag `-f` forza l'aggiunta nonostante il `.gitignore`. Usalo
-  solo per questo scopo specifico.
-
-In entrambi i casi, il file finira' comunque nella cronologia del
-repository su GitHub (e li' e' visibile a chiunque abbia accesso al repo).
-Per questo la vera protezione e': permessi minimi sul token + repository
-privato, non "nascondere" il file.
+2. Puoi revocarlo/rigenerarlo in qualsiasi momento da
+   github.com/settings/tokens?type=beta: basta poi inserire il nuovo token
+   nell'app (icona 🔑 in alto) su ciascun dispositivo.
+3. Se possibile, valuta comunque di tenere il repository dei dati privato
+   per una protezione ulteriore (nota: GitHub Pages gratuito pubblica solo
+   da repository pubblici; un repo privato richiede GitHub Pro).
 
 ---
 
@@ -92,8 +80,9 @@ privato, non "nascondere" il file.
 1. Vai su https://github.com/settings/tokens?type=beta e clicca
    **"Generate new token"**.
 2. **Token name**: es. `come-stai-app-data`.
-3. **Expiration**: scegli una scadenza (es. 90 giorni) - ricordati di
-   rigenerarlo quando scade.
+3. **Expiration**: scegli un valore **preimpostato** dal menu a tendina
+   (es. "90 days") - evita "Custom" per non rischiare di scegliere per
+   sbaglio una data nel passato.
 4. **Repository access** → **"Only select repositories"** → seleziona
    solo il repository che contiene `data/moods.json` (es.
    `kevodable/come-stai-app`).
@@ -101,12 +90,12 @@ privato, non "nascondere" il file.
    **"Read and write"**. Lascia tutti gli altri permessi su "No access".
 6. Clicca **"Generate token"** e copia il token (inizia con `github_pat_`):
    viene mostrato una sola volta.
-7. Copia `github-config.example.js` in `github-config.js` e incolla il
-   token nel campo `token`, insieme a `owner`, `repo`, `branch` e `path`
-   corretti.
+7. Tienilo da parte: lo incollerai nell'app stessa (non in nessun file) al
+   primo accesso su ogni dispositivo, tramite la schermata "Token GitHub".
 
 Per revocare il token in futuro: stessa pagina → click sul token →
-**"Delete"**.
+**"Delete"**. Dopo averlo revocato/rigenerato, apri l'app, tocca l'icona
+🔑 in alto per aggiornarlo su ogni dispositivo.
 
 ## 2. Creare il progetto Firebase minimale (Firestore + Functions + Messaging)
 
@@ -118,25 +107,25 @@ Niente Hosting: usiamo solo Firestore, Cloud Functions e Cloud Messaging.
 2. **Firestore**: nel menu laterale → **Build → Firestore Database** →
    **"Crea database"** → modalita' **production** → scegli una region.
    Non serve creare manualmente la collection "tokens": verra' creata
-   automaticamente al primo salvataggio del token da parte dell'app.
-3. **Cloud Messaging**: nel menu laterale → **Build → Messaging** (basta
-   che la sezione risulti abilitata; la vera configurazione la fai al
-   punto 3 qui sotto per la VAPID key).
-4. **App Web**: Project settings (icona ingranaggio) → in fondo a "Your
-   apps" clicca l'icona `</>` per aggiungere una Web App → dalle un nome →
+   automaticamente al primo salvataggio del token FCM da parte dell'app.
+3. **App Web**: Project settings (icona ingranaggio) → in fondo a "Le tue
+   app" clicca l'icona `</>` per aggiungere una Web App → dalle un nome →
    NON serve configurare Firebase Hosting quando te lo chiede → copia i
    valori mostrati (`apiKey`, `authDomain`, `projectId`,
    `storageBucket`, `messagingSenderId`, `appId`) dentro
-   `firebase-config.js` (copialo prima da `firebase-config.example.js`).
-5. **Piano Blaze**: le Cloud Functions richiedono il piano a consumo
+   `firebase-config.js`.
+4. **Piano Blaze**: le Cloud Functions richiedono il piano a consumo
    "Blaze" (ha comunque una fascia gratuita generosa). Project settings →
-   **Usage and billing** → **"Modify plan"** → **Blaze**.
-6. Installa la CLI Firebase in locale (richiede Node.js):
+   **Usage and billing** → **"Modify plan"** → **Blaze**. Se ti chiede dati
+   fiscali e sei un privato senza Partita IVA, usa il tuo Codice Fiscale
+   personale nel campo "Codice fiscale" e lascia vuoto "Partita IVA".
+5. Installa la CLI Firebase in locale, oppure usa **Google Cloud Shell**
+   (terminale nel browser, funziona anche da telefono):
    ```
    npm install -g firebase-tools
    firebase login
    ```
-7. Nella cartella del progetto, collega la CLI al progetto Firebase creato:
+6. Nella cartella del progetto, collega la CLI al progetto Firebase creato:
    ```
    firebase use --add
    ```
@@ -172,27 +161,25 @@ Niente Hosting: usiamo solo Firestore, Cloud Functions e Cloud Messaging.
 
 ## 5. Pubblicare il sito su GitHub Pages
 
-1. Crea (o usa) un repository GitHub e pusha tutti i file (tranne
-   `github-config.js` / `firebase-config.js`, che restano gitignored):
+1. Crea (o usa) un repository GitHub e pusha tutti i file, inclusi
+   `github-config.js` e `firebase-config.js` (non contengono segreti):
    ```
    git add .
    git commit -m "Come stai? - PWA iniziale"
    git push -u origin main
    ```
-2. Aggiungi i file di configurazione reali direttamente sul repository
-   GitHub (vedi "Nota importante sul deploy dei file di configurazione"
-   sopra: upload manuale via interfaccia web, oppure `git add -f`).
-3. Su GitHub: **Settings** del repository → **Pages** → **"Build and
+2. Su GitHub: **Settings** del repository → **Pages** → **"Build and
    deployment"** → Source: **"Deploy from a branch"** → Branch: `main`,
    cartella `/ (root)` → **Save**.
-4. Dopo un minuto il sito sara' online su
+3. Dopo un minuto il sito sara' online su
    `https://<tuo-utente>.github.io/<nome-repo>/`.
-5. Su iPhone: apri quell'URL in **Safari** → tasto **Condividi** →
+4. Su iPhone: apri quell'URL in **Safari** → tasto **Condividi** →
    **"Aggiungi alla schermata Home"**. Da quel momento l'app si apre a
    schermo intero come un'app nativa, ed e' li' che va aperta per poter
    attivare le notifiche (richiede iOS 16.4+).
-6. Apri l'app dalla home screen, scegli il tuo profilo ("Chi sei?"), poi
-   tocca **"🔔 Attiva notifiche"**.
+5. Apri l'app dalla home screen: scegli il tuo profilo ("Chi sei?"), poi
+   incolla il token GitHub creato al punto 1 quando richiesto, poi tocca
+   **"🔔 Attiva notifiche"**.
 
 Fatto: ogni volta che una delle due persone tocca un'emoji, l'altra vede
 lo stato aggiornarsi entro ~18 secondi e riceve una notifica push.

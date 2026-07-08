@@ -21,15 +21,14 @@
 </head>
 <body>
 
-<!-- Messaggio mostrato se github-config.js / firebase-config.js non sono stati creati -->
+<!-- Messaggio mostrato se github-config.js / firebase-config.js non sono configurati -->
 <div id="config-missing" class="overlay hidden">
   <div class="overlay-card">
     <p class="overlay-emoji">🛠️</p>
     <h1>Configurazione mancante</h1>
     <p class="overlay-sub">
-      Manca <code>github-config.js</code> e/o <code>firebase-config.js</code>.<br>
-      Copia i file <code>*.example.js</code> con il nome giusto e inserisci i tuoi valori
-      (vedi <code>README.md</code>).
+      Manca o e' incompleto <code>github-config.js</code> e/o <code>firebase-config.js</code>.
+      Vedi <code>README.md</code> per come compilarli.
     </p>
   </div>
 </div>
@@ -47,10 +46,37 @@
   </div>
 </div>
 
+<!-- Onboarding: token GitHub, salvato in localStorage sul dispositivo (mai su GitHub) -->
+<div id="github-token-setup" class="overlay hidden">
+  <div class="overlay-card">
+    <p class="overlay-emoji">🔑</p>
+    <h1>Token GitHub</h1>
+    <p class="overlay-sub">
+      Serve per leggere e salvare i vostri stati. Chiedi il token a chi ha
+      configurato l'app: resta solo su questo dispositivo, non viene mai
+      pubblicato online.
+    </p>
+    <input
+      type="password"
+      id="github-token-input"
+      class="token-input"
+      placeholder="github_pat_..."
+      autocapitalize="off"
+      autocorrect="off"
+      spellcheck="false"
+    >
+    <button id="save-token-btn" class="who-btn">Salva</button>
+    <p id="token-error" class="notify-hint hidden"></p>
+  </div>
+</div>
+
 <div id="app" class="hidden">
   <header class="app-header">
     <h1>Come stai?</h1>
-    <button id="switch-profile" class="ghost-btn" title="Cambia profilo su questo dispositivo">⚙️</button>
+    <div class="header-actions">
+      <button id="update-token" class="ghost-btn" title="Aggiorna token GitHub su questo dispositivo">🔑</button>
+      <button id="switch-profile" class="ghost-btn" title="Cambia profilo su questo dispositivo">⚙️</button>
+    </div>
   </header>
 
   <main>
