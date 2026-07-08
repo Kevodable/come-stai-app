@@ -220,13 +220,15 @@ function maybeShowTokenSetup() {
 }
 
 function saveGithubToken() {
-  const value = els.githubTokenInput.value.trim();
+  // .trim() non rimuove caratteri invisibili (es. zero-width space) che a
+  // volte sopravvivono a un copia-incolla da app di messaggistica.
+  const value = els.githubTokenInput.value.trim().replace(/[\u200B-\u200D\uFEFF]/g, "");
   if (!value) {
     els.tokenError.textContent = "Inserisci il token prima di salvare.";
     els.tokenError.classList.remove("hidden");
     return;
   }
-  if (!/^gh[a-z]+_[A-Za-z0-9_]+$/.test(value)) {
+  if (!/^gh[a-z]+_/.test(value)) {
     els.tokenError.textContent =
       "Questo non sembra un token GitHub valido (dovrebbe iniziare con \"github_pat_\"). " +
       "Controlla di aver incollato tutto il testo e riprova - su iPhone attento a non toccare " +
