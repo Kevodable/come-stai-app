@@ -28,6 +28,9 @@ const MOOD_OPTIONS = [
   { key: "stress", emoji: "😩", label: "Stress" },
   { key: "ansia", emoji: "😰", label: "Ansia" },
   { key: "rabbia", emoji: "😡", label: "Rabbia" },
+  { key: "esaurimento", emoji: "🤯", label: "Esaurimento" },
+  { key: "concentrazione", emoji: "🧐", label: "Concentrazione" },
+  { key: "relax", emoji: "🧘", label: "Relax" },
 ];
 
 // Livelli di intensita' associabili a ogni emozione
