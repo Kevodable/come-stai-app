@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😩",
-      "label": "Stress",
-      "intensity": 3,
-      "timestamp": "2026-07-09T16:24:52.512Z",
-      "note": "Finito ora di pellettare 150 pozzetti di cellule, che incubo"
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 2,
+      "timestamp": "2026-07-09T17:14:10.766Z",
+      "note": "Sto cercando di ripogliarmii"
     },
     "personB": {
       "emoji": "😰",
@@ -139,6 +139,14 @@
       "intensity": 3,
       "timestamp": "2026-07-09T16:24:52.512Z",
       "note": "Finito ora di pellettare 150 pozzetti di cellule, che incubo"
+    },
+    {
+      "person": "personA",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 2,
+      "timestamp": "2026-07-09T17:14:10.766Z",
+      "note": "Sto cercando di ripogliarmii"
     }
   ]
 }
