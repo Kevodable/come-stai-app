@@ -42,6 +42,7 @@ const INTENSITY_LEVELS = [
 
 const POLL_MS = 18000; // 18s: dentro il range 15-20s richiesto
 const HISTORY_PAGE_SIZE = 50;
+const DIARY_PAGE_SIZE = 20;
 const PROFILE_STORAGE_KEY = "comeStaiApp.myPerson";
 const TOKEN_STORAGE_KEY = "comeStaiApp.githubToken";
 
@@ -60,6 +61,7 @@ const STATE = {
   githubToken: null,
   lastData: null,
   historyShowCount: HISTORY_PAGE_SIZE,
+  diaryShowCount: DIARY_PAGE_SIZE,
   pollTimer: null,
   selectedMood: null,
   selectedIntensity: null,
@@ -135,6 +137,12 @@ function cacheDom() {
   els.timeline = document.getElementById("timeline");
   els.timelineEmpty = document.getElementById("timeline-empty");
   els.loadMore = document.getElementById("load-more");
+  els.diaryInput = document.getElementById("diary-input");
+  els.saveDiaryBtn = document.getElementById("save-diary-btn");
+  els.diarySaveStatus = document.getElementById("diary-save-status");
+  els.diaryEntries = document.getElementById("diary-entries");
+  els.diaryEmpty = document.getElementById("diary-empty");
+  els.diaryLoadMore = document.getElementById("diary-load-more");
   els.tabBtns = Array.from(document.querySelectorAll(".tab-btn"));
 }
 
@@ -178,6 +186,13 @@ function bindEvents() {
     if (STATE.lastData) renderTimeline(STATE.lastData);
   });
 
+  els.saveDiaryBtn.addEventListener("click", saveDiaryEntry);
+
+  els.diaryLoadMore.addEventListener("click", () => {
+    STATE.diaryShowCount += DIARY_PAGE_SIZE;
+    if (STATE.lastData) renderDiaryEntries(STATE.lastData);
+  });
+
   els.tabBtns.forEach((btn) => {
     btn.addEventListener("click", () => switchScreen(btn.dataset.screen));
   });
@@ -188,6 +203,9 @@ function switchScreen(screenId) {
   els.tabBtns.forEach((b) => b.classList.toggle("active", b.dataset.screen === screenId));
   if (screenId === "screen-history" && STATE.lastData) {
     renderTimeline(STATE.lastData);
+  }
+  if (screenId === "screen-diary" && STATE.lastData) {
+    renderDiaryEntries(STATE.lastData);
   }
 }
 
@@ -222,7 +240,7 @@ function maybeShowTokenSetup() {
   }
 }
 
-function saveGithubToken() {
+async function saveGithubToken() {
   // .trim() non rimuove caratteri invisibili (es. zero-width space) che a
   // volte sopravvivono a un copia-incolla da app di messaggistica.
   const value = els.githubTokenInput.value.trim().replace(/[\u200B-\u200D\uFEFF]/g, "");
@@ -244,6 +262,12 @@ function saveGithubToken() {
   els.tokenError.classList.add("hidden");
   els.githubTokenSetup.classList.add("hidden");
   showApp();
+  try {
+    const data = await fetchMoods();
+    handleIncomingData(data);
+  } catch (err) {
+    console.warn("Lettura dopo il salvataggio del token fallita", err);
+  }
 }
 
 function showApp() {
@@ -332,29 +356,21 @@ function setSaveStatus(text) {
 }
 
 // ---------------------------------------------------------------------
-// Lettura dati (polling da raw.githubusercontent.com)
+// Lettura dati (GitHub Contents API, autenticata - funziona sia con
+// repository pubblico che privato)
 // ---------------------------------------------------------------------
 
-function rawUrl() {
-  const c = self.GITHUB_CONFIG;
-  return `https://raw.githubusercontent.com/${c.owner}/${c.repo}/${c.branch}/${c.path}`;
-}
-
-function cacheBust(url) {
-  const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}_=${Date.now()}-${Math.random().toString(36).slice(2)}`;
-}
-
 async function fetchMoods() {
-  // Niente header Authorization qui: il repository e' pubblico e non serve,
-  // e aggiungerlo forza il browser a un preflight CORS verso
-  // raw.githubusercontent.com che su Safari a volte fallisce con un
-  // generico "Load failed". Se in futuro il repo diventasse privato,
-  // la lettura andrebbe fatta tramite le GitHub Contents API invece che
-  // raw.githubusercontent.com.
-  const res = await fetch(cacheBust(rawUrl()), { cache: "no-store" });
+  const c = self.GITHUB_CONFIG;
+  const headers = { Accept: "application/vnd.github+json" };
+  if (STATE.githubToken) headers.Authorization = `Bearer ${STATE.githubToken}`;
+  const res = await fetch(`${contentsApiUrl()}?ref=${encodeURIComponent(c.branch)}`, {
+    headers,
+    cache: "no-store",
+  });
   if (!res.ok) throw new Error(`Lettura fallita (${res.status})`);
-  return res.json();
+  const json = await res.json();
+  return JSON.parse(b64DecodeUnicode(json.content.replace(/\n/g, "")));
 }
 
 // All'avvio "a freddo" di una PWA su iOS, la primissima richiesta di rete
@@ -396,6 +412,10 @@ function renderAll(data) {
   const historyScreen = document.getElementById("screen-history");
   if (historyScreen.classList.contains("active")) {
     renderTimeline(data);
+  }
+  const diaryScreen = document.getElementById("screen-diary");
+  if (diaryScreen.classList.contains("active")) {
+    renderDiaryEntries(data);
   }
 }
 
@@ -531,6 +551,122 @@ async function setMyMood(option, intensity, note) {
   }
 
   disableIntensityButtons(false);
+}
+
+// ---------------------------------------------------------------------
+// Diario - pagine di testo libero, non legate a un'emozione
+// ---------------------------------------------------------------------
+
+async function saveDiaryEntry() {
+  if (!STATE.myPerson) return;
+  const text = els.diaryInput.value.trim();
+  if (!text) {
+    els.diarySaveStatus.textContent = "Scrivi qualcosa prima di salvare.";
+    return;
+  }
+
+  els.saveDiaryBtn.disabled = true;
+  els.diarySaveStatus.textContent = "Salvataggio in corso…";
+
+  const maxAttempts = 3;
+  let lastErr = null;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const { content, sha } = await getFileForWrite();
+      const nowIso = new Date().toISOString();
+
+      content.diary = content.diary || [];
+      content.diary.push({ person: STATE.myPerson, text, timestamp: nowIso });
+
+      await putFile(content, sha, `Nuova pagina di diario di ${PERSON_NAMES[STATE.myPerson]}`);
+
+      STATE.lastData = content;
+      els.diaryInput.value = "";
+      renderAll(content);
+      els.diarySaveStatus.textContent = "Salvato ✓";
+      setTimeout(() => (els.diarySaveStatus.textContent = ""), 2000);
+      lastErr = null;
+      break;
+    } catch (err) {
+      lastErr = err;
+      if ((err.status === 409 || err.status === 422) && attempt < maxAttempts) {
+        continue;
+      }
+      break;
+    }
+  }
+
+  if (lastErr) {
+    console.error(lastErr);
+    const detail = lastErr.status ? `${lastErr.status}` : lastErr.message;
+    els.diarySaveStatus.textContent = `⚠️ Salvataggio non riuscito (${detail}). Riprova.`;
+  }
+
+  els.saveDiaryBtn.disabled = false;
+}
+
+function renderDiaryEntries(data) {
+  const entries = data.diary || [];
+  const total = entries.length;
+
+  if (total === 0) {
+    els.diaryEntries.innerHTML = "";
+    els.diaryEmpty.classList.remove("hidden");
+    els.diaryLoadMore.classList.add("hidden");
+    return;
+  }
+  els.diaryEmpty.classList.add("hidden");
+
+  const showCount = Math.min(STATE.diaryShowCount, total);
+  const slice = entries.slice(Math.max(0, total - showCount), total).reverse();
+
+  const now = new Date();
+  const groups = [];
+  let lastLabel = null;
+  for (const entry of slice) {
+    const d = new Date(entry.timestamp);
+    const label = dayLabel(d, now);
+    if (label !== lastLabel) {
+      groups.push({ label, items: [] });
+      lastLabel = label;
+    }
+    groups[groups.length - 1].items.push(entry);
+  }
+
+  els.diaryEntries.innerHTML = groups
+    .map(
+      (group) => `
+      <div class="timeline-day">
+        <p class="timeline-day-label">${escapeHtml(group.label)}</p>
+        ${group.items.map((entry) => renderDiaryEntry(entry, now)).join("")}
+      </div>
+    `
+    )
+    .join("");
+
+  els.diaryLoadMore.classList.toggle("hidden", showCount >= total);
+}
+
+function renderDiaryEntry(entry, now) {
+  const d = new Date(entry.timestamp);
+  const name = PERSON_NAMES[entry.person] || entry.person;
+  const when = isSameDay(d, now)
+    ? `oggi alle ${timeHM(d)}`
+    : isSameDay(d, yesterdayOf(now))
+    ? `ieri alle ${timeHM(d)}`
+    : `alle ${timeHM(d)}`;
+
+  return `
+    <div class="timeline-entry">
+      <div class="timeline-emoji">📔</div>
+      <div class="timeline-body">
+        <p class="timeline-person">${escapeHtml(name)}</p>
+        <p class="diary-entry-text">${escapeHtml(entry.text)}</p>
+        <p class="timeline-when">${escapeHtml(when)}</p>
+      </div>
+    </div>
+  `;
 }
 
 // Base64 <-> UTF-8 (necessario per via delle emoji nel JSON)

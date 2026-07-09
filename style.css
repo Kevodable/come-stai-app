@@ -352,6 +352,41 @@ main {
 
 .confirm-mood-btn:not(:disabled):active { transform: scale(0.98); }
 
+/* ---------- Diario ---------- */
+
+.diary-label {
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 14px;
+  margin: 8px 0 12px;
+}
+
+.diary-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  font-size: 15px;
+  font-family: inherit;
+  line-height: 1.5;
+  background: var(--card);
+  color: var(--ink);
+  resize: vertical;
+}
+
+.diary-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.diary-entry-text {
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin: 0 0 4px;
+  white-space: pre-wrap;
+}
+
 .save-status {
   text-align: center;
   min-height: 20px;
