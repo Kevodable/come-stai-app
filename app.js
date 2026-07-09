@@ -746,7 +746,7 @@ async function enableNotifications() {
     setNotifyHint("Notifiche attive ✓");
 
     messaging.onMessage((payload) => {
-      const body = (payload.notification && payload.notification.body) || "";
+      const body = (payload.data && payload.data.body) || "";
       setSaveStatus(body);
       setTimeout(() => setSaveStatus(""), 4000);
     });

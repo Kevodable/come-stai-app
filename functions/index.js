@@ -63,12 +63,14 @@ exports.sendMoodNotification = functions.https.onRequest(async (req, res) => {
 
     await admin.messaging().send({
       token,
-      notification: {
+      // Solo "data", niente "notification": se fossero presenti entrambi,
+      // il browser mostrerebbe la notifica automaticamente E il nostro
+      // gestore in sw.js la mostrerebbe di nuovo manualmente, duplicandola.
+      // La costruiamo una sola volta lato client, in onBackgroundMessage.
+      data: {
         title: "Come stai?",
         body,
-      },
-      webpush: {
-        fcmOptions: { link: "/" },
+        url: "/",
       },
     });
 
