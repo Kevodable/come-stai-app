@@ -8,11 +8,11 @@
       "note": "Mi sa che a breve me ne vado che c’ho sonnooo"
     },
     "personB": {
-      "emoji": "😩",
-      "label": "Stress",
-      "intensity": 1,
-      "timestamp": "2026-07-09T19:13:36.855Z",
-      "note": "Laggenteeee"
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 2,
+      "timestamp": "2026-07-09T21:00:20.426Z",
+      "note": "Pure io che sonnooo"
     }
   },
   "history": [
@@ -196,6 +196,14 @@
       "intensity": 2,
       "timestamp": "2026-07-09T20:45:26.824Z",
       "note": "Mi sa che a breve me ne vado che c’ho sonnooo"
+    },
+    {
+      "person": "personB",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 2,
+      "timestamp": "2026-07-09T21:00:20.426Z",
+      "note": "Pure io che sonnooo"
     }
   ],
   "diary": [
