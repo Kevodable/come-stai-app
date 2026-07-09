@@ -525,13 +525,13 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: 10px 0 calc(8px + env(safe-area-inset-bottom));
-  font-size: 12px;
+  gap: 1px;
+  padding: 6px 0 calc(4px + env(safe-area-inset-bottom));
+  font-size: 11px;
   color: var(--ink-soft);
 }
 
-.tab-btn .tab-icon { font-size: 20px; }
+.tab-btn .tab-icon { font-size: 17px; }
 
 .tab-btn.active { color: var(--accent); font-weight: 700; }
 
