@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😴",
-      "label": "Stanchezza",
-      "intensity": 3,
-      "timestamp": "2026-07-08T19:54:09.483Z",
-      "note": "Sto sognando di andare a dormire con te"
+      "emoji": "🧘",
+      "label": "Relax",
+      "intensity": 1,
+      "timestamp": "2026-07-09T06:20:30.163Z",
+      "note": "Approfitto del viaggio in treno per fare recap di quello che devo fare oggi per rilassarmi mentalmente"
     },
     "personB": {
       "emoji": "😊",
@@ -93,6 +93,14 @@
       "intensity": 3,
       "timestamp": "2026-07-08T19:54:09.483Z",
       "note": "Sto sognando di andare a dormire con te"
+    },
+    {
+      "person": "personA",
+      "emoji": "🧘",
+      "label": "Relax",
+      "intensity": 1,
+      "timestamp": "2026-07-09T06:20:30.163Z",
+      "note": "Approfitto del viaggio in treno per fare recap di quello che devo fare oggi per rilassarmi mentalmente"
     }
   ]
 }
