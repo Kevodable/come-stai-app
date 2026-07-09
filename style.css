@@ -102,8 +102,8 @@ button {
 #app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100dvh;
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
 }
@@ -397,19 +397,41 @@ main {
 
 /* ---------- Timeline / "Storia" screen ---------- */
 
-.timeline { padding: 10px 0 0; }
+.timeline {
+  position: relative;
+  padding: 10px 0 0;
+}
+
+/* Linea continua unica per tutta la timeline, non spezzata a ogni giorno */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 21px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--line);
+}
 
 .timeline-day {
-  margin-bottom: 22px;
+  position: relative;
+  margin-bottom: 24px;
 }
 
 .timeline-day-label {
-  font-size: 13px;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  font-size: 12px;
   font-weight: 700;
-  color: var(--accent);
+  color: #fff;
+  background: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin: 0 0 10px 40px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin: 0 0 14px 4px;
+  box-shadow: 0 4px 10px rgba(232, 115, 95, 0.3);
 }
 
 .timeline-entry {
@@ -419,31 +441,18 @@ main {
   padding: 0 0 18px 0;
 }
 
-.timeline-entry::before {
-  content: "";
-  position: absolute;
-  left: 19px;
-  top: 34px;
-  bottom: -4px;
-  width: 2px;
-  background: var(--line);
-}
-
-.timeline-day:last-child .timeline-entry:last-child::before {
-  display: none;
-}
-
 .timeline-emoji {
   flex: none;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--card);
   box-shadow: var(--shadow);
+  border: 3px solid var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 21px;
   z-index: 1;
 }
 
