@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😢",
-      "label": "Tristezza",
-      "intensity": 1,
-      "timestamp": "2026-07-09T18:45:31.998Z",
-      "note": "Mi manchi e vorrei fossi qua pure tu🥺"
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 2,
+      "timestamp": "2026-07-09T20:45:26.824Z",
+      "note": "Mi sa che a breve me ne vado che c’ho sonnooo"
     },
     "personB": {
       "emoji": "😩",
@@ -188,6 +188,14 @@
       "intensity": 1,
       "timestamp": "2026-07-09T19:13:36.855Z",
       "note": "Laggenteeee"
+    },
+    {
+      "person": "personA",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 2,
+      "timestamp": "2026-07-09T20:45:26.824Z",
+      "note": "Mi sa che a breve me ne vado che c’ho sonnooo"
     }
   ],
   "diary": [
