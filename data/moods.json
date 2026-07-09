@@ -165,5 +165,12 @@
       "timestamp": "2026-07-09T17:27:48.025Z",
       "note": "Perché sei felice ❤️"
     }
+  ],
+  "diary": [
+    {
+      "person": "personB",
+      "text": "Prova",
+      "timestamp": "2026-07-09T18:36:57.930Z"
+    }
   ]
 }
