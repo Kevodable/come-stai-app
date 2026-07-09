@@ -8,10 +8,11 @@
       "note": "Pensando che domani sto con teeeee non vedo l’ora"
     },
     "personB": {
-      "emoji": "😰",
-      "label": "Ansia",
-      "intensity": 2,
-      "timestamp": "2026-07-09T16:19:41.033Z"
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-07-09T17:27:48.025Z",
+      "note": "Perché sei felice ❤️"
     }
   },
   "history": [
@@ -155,6 +156,14 @@
       "intensity": 3,
       "timestamp": "2026-07-09T17:14:37.720Z",
       "note": "Pensando che domani sto con teeeee non vedo l’ora"
+    },
+    {
+      "person": "personB",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-07-09T17:27:48.025Z",
+      "note": "Perché sei felice ❤️"
     }
   ]
 }
