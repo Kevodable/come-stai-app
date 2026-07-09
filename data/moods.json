@@ -8,11 +8,10 @@
       "note": "Bastaaa"
     },
     "personB": {
-      "emoji": "😡",
-      "label": "Rabbia",
-      "intensity": 1,
-      "timestamp": "2026-07-09T10:42:21.182Z",
-      "note": "Le persone rompono le palline"
+      "emoji": "😰",
+      "label": "Ansia",
+      "intensity": 2,
+      "timestamp": "2026-07-09T16:19:41.033Z"
     }
   },
   "history": [
@@ -125,6 +124,13 @@
       "intensity": 1,
       "timestamp": "2026-07-09T10:42:21.182Z",
       "note": "Le persone rompono le palline"
+    },
+    {
+      "person": "personB",
+      "emoji": "😰",
+      "label": "Ansia",
+      "intensity": 2,
+      "timestamp": "2026-07-09T16:19:41.033Z"
     }
   ]
 }
