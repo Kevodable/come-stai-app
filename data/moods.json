@@ -3,9 +3,9 @@
     "personA": {
       "emoji": "😊",
       "label": "Felicità",
-      "intensity": 3,
-      "timestamp": "2026-07-09T17:14:37.720Z",
-      "note": "Pensando che domani sto con teeeee non vedo l’ora"
+      "intensity": 2,
+      "timestamp": "2026-07-09T18:45:09.951Z",
+      "note": "Me la sto godendo qua dai, mi sto rilassando. Finalmente non devo correre da qualche parte"
     },
     "personB": {
       "emoji": "😊",
@@ -164,6 +164,14 @@
       "intensity": 3,
       "timestamp": "2026-07-09T17:27:48.025Z",
       "note": "Perché sei felice ❤️"
+    },
+    {
+      "person": "personA",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 2,
+      "timestamp": "2026-07-09T18:45:09.951Z",
+      "note": "Me la sto godendo qua dai, mi sto rilassando. Finalmente non devo correre da qualche parte"
     }
   ],
   "diary": [
