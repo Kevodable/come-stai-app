@@ -4,8 +4,8 @@
       "emoji": "😴",
       "label": "Stanchezza",
       "intensity": 2,
-      "timestamp": "2026-07-09T20:45:26.824Z",
-      "note": "Mi sa che a breve me ne vado che c’ho sonnooo"
+      "timestamp": "2026-07-10T07:51:39.342Z",
+      "note": "Sto ancora dormendo"
     },
     "personB": {
       "emoji": "🤯",
@@ -212,6 +212,14 @@
       "intensity": 2,
       "timestamp": "2026-07-09T21:41:08.171Z",
       "note": "Non capisco più niente"
+    },
+    {
+      "person": "personA",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 2,
+      "timestamp": "2026-07-10T07:51:39.342Z",
+      "note": "Sto ancora dormendo"
     }
   ],
   "diary": [
