@@ -8,11 +8,11 @@
       "note": "Per una volta che andava liscia"
     },
     "personB": {
-      "emoji": "😊",
-      "label": "Felicità",
-      "intensity": 3,
-      "timestamp": "2026-07-10T18:25:19.893Z",
-      "note": "Stanco ma felicissimo di vederti"
+      "emoji": "😢",
+      "label": "Tristezza",
+      "intensity": 2,
+      "timestamp": "2026-07-10T21:59:01.223Z",
+      "note": "Mi manchi già"
     }
   },
   "history": [
@@ -251,6 +251,14 @@
       "intensity": 3,
       "timestamp": "2026-07-10T18:25:19.893Z",
       "note": "Stanco ma felicissimo di vederti"
+    },
+    {
+      "person": "personB",
+      "emoji": "😢",
+      "label": "Tristezza",
+      "intensity": 2,
+      "timestamp": "2026-07-10T21:59:01.223Z",
+      "note": "Mi manchi già"
     }
   ],
   "diary": [
