@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😴",
-      "label": "Stanchezza",
-      "intensity": 2,
-      "timestamp": "2026-07-10T07:51:39.342Z",
-      "note": "Sto ancora dormendo"
+      "emoji": "😡",
+      "label": "Rabbia",
+      "intensity": 3,
+      "timestamp": "2026-07-10T13:23:43.216Z",
+      "note": "Per una volta che andava liscia"
     },
     "personB": {
       "emoji": "😊",
@@ -235,6 +235,14 @@
       "intensity": 3,
       "timestamp": "2026-07-10T12:32:39.288Z",
       "note": "questa sera ti vedo"
+    },
+    {
+      "person": "personA",
+      "emoji": "😡",
+      "label": "Rabbia",
+      "intensity": 3,
+      "timestamp": "2026-07-10T13:23:43.216Z",
+      "note": "Per una volta che andava liscia"
     }
   ],
   "diary": [
