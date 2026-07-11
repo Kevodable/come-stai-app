@@ -8,10 +8,11 @@
       "note": "Mi si chiudono gli occhiii"
     },
     "personB": {
-      "emoji": "😴",
-      "label": "Stanchezza",
-      "intensity": 2,
-      "timestamp": "2026-07-11T08:59:15.453Z"
+      "emoji": "😩",
+      "label": "Stress",
+      "intensity": 3,
+      "timestamp": "2026-07-11T20:15:28.719Z",
+      "note": "La gente stasera sta dando il peggio di sé"
     }
   },
   "history": [
@@ -281,6 +282,14 @@
       "intensity": 3,
       "timestamp": "2026-07-11T18:31:52.158Z",
       "note": "Mi si chiudono gli occhiii"
+    },
+    {
+      "person": "personB",
+      "emoji": "😩",
+      "label": "Stress",
+      "intensity": 3,
+      "timestamp": "2026-07-11T20:15:28.719Z",
+      "note": "La gente stasera sta dando il peggio di sé"
     }
   ],
   "diary": [
