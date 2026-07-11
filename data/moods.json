@@ -8,11 +8,10 @@
       "note": "Sto cercando di aumentarlo almeno a 2"
     },
     "personB": {
-      "emoji": "😢",
-      "label": "Tristezza",
+      "emoji": "😴",
+      "label": "Stanchezza",
       "intensity": 2,
-      "timestamp": "2026-07-10T21:59:01.223Z",
-      "note": "Mi manchi già"
+      "timestamp": "2026-07-11T08:59:15.453Z"
     }
   },
   "history": [
@@ -267,6 +266,13 @@
       "intensity": 1,
       "timestamp": "2026-07-11T07:55:28.601Z",
       "note": "Sto cercando di aumentarlo almeno a 2"
+    },
+    {
+      "person": "personB",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 2,
+      "timestamp": "2026-07-11T08:59:15.453Z"
     }
   ],
   "diary": [
