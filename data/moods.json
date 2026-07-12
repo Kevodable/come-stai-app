@@ -3,9 +3,9 @@
     "personA": {
       "emoji": "😴",
       "label": "Stanchezza",
-      "intensity": 2,
-      "timestamp": "2026-07-12T07:32:35.258Z",
-      "note": "Mi si chiudono gli occhiii ora vado a dormire in spiaggia un po’"
+      "intensity": 3,
+      "timestamp": "2026-07-12T22:02:16.332Z",
+      "note": "Sto collassando"
     },
     "personB": {
       "emoji": "😢",
@@ -313,6 +313,14 @@
       "intensity": 3,
       "timestamp": "2026-07-12T21:29:58.206Z",
       "note": "Mi manchi"
+    },
+    {
+      "person": "personA",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 3,
+      "timestamp": "2026-07-12T22:02:16.332Z",
+      "note": "Sto collassando"
     }
   ],
   "diary": [
