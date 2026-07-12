@@ -8,10 +8,11 @@
       "note": "Mi si chiudono gli occhiii ora vado a dormire in spiaggia un po’"
     },
     "personB": {
-      "emoji": "😴",
-      "label": "Stanchezza",
+      "emoji": "😢",
+      "label": "Tristezza",
       "intensity": 3,
-      "timestamp": "2026-07-12T07:13:35.831Z"
+      "timestamp": "2026-07-12T21:29:58.206Z",
+      "note": "Mi manchi"
     }
   },
   "history": [
@@ -304,6 +305,14 @@
       "intensity": 2,
       "timestamp": "2026-07-12T07:32:35.258Z",
       "note": "Mi si chiudono gli occhiii ora vado a dormire in spiaggia un po’"
+    },
+    {
+      "person": "personB",
+      "emoji": "😢",
+      "label": "Tristezza",
+      "intensity": 3,
+      "timestamp": "2026-07-12T21:29:58.206Z",
+      "note": "Mi manchi"
     }
   ],
   "diary": [
