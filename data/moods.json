@@ -3,8 +3,9 @@
     "personA": {
       "emoji": "😩",
       "label": "Stress",
-      "intensity": 1,
-      "timestamp": "2026-07-13T06:35:44.735Z"
+      "intensity": 3,
+      "timestamp": "2026-07-13T10:31:59.153Z",
+      "note": "Non so reggere l’ansia nonostante io mi sia giustificata. Non ce la faccio così cazzo"
     },
     "personB": {
       "emoji": "😩",
@@ -350,6 +351,14 @@
       "intensity": 2,
       "timestamp": "2026-07-13T10:13:10.385Z",
       "note": "Discussione con risposte solite di mia mamma"
+    },
+    {
+      "person": "personA",
+      "emoji": "😩",
+      "label": "Stress",
+      "intensity": 3,
+      "timestamp": "2026-07-13T10:31:59.153Z",
+      "note": "Non so reggere l’ansia nonostante io mi sia giustificata. Non ce la faccio così cazzo"
     }
   ],
   "diary": [
