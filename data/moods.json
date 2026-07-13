@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😩",
-      "label": "Stress",
-      "intensity": 3,
-      "timestamp": "2026-07-13T10:31:59.153Z",
-      "note": "Non so reggere l’ansia nonostante io mi sia giustificata. Non ce la faccio così cazzo"
+      "emoji": "🧐",
+      "label": "Concentrazione",
+      "intensity": 2,
+      "timestamp": "2026-07-13T14:59:13.514Z",
+      "note": "Sto cercando di studiare un po’ tra una distrazione e l’altra"
     },
     "personB": {
       "emoji": "😩",
@@ -359,6 +359,14 @@
       "intensity": 3,
       "timestamp": "2026-07-13T10:31:59.153Z",
       "note": "Non so reggere l’ansia nonostante io mi sia giustificata. Non ce la faccio così cazzo"
+    },
+    {
+      "person": "personA",
+      "emoji": "🧐",
+      "label": "Concentrazione",
+      "intensity": 2,
+      "timestamp": "2026-07-13T14:59:13.514Z",
+      "note": "Sto cercando di studiare un po’ tra una distrazione e l’altra"
     }
   ],
   "diary": [
