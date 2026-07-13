@@ -7,10 +7,11 @@
       "timestamp": "2026-07-13T06:35:44.735Z"
     },
     "personB": {
-      "emoji": "😴",
-      "label": "Stanchezza",
-      "intensity": 3,
-      "timestamp": "2026-07-13T07:16:35.926Z"
+      "emoji": "😩",
+      "label": "Stress",
+      "intensity": 2,
+      "timestamp": "2026-07-13T10:13:10.385Z",
+      "note": "Discussione con risposte solite di mia mamma"
     }
   },
   "history": [
@@ -341,6 +342,14 @@
       "label": "Stanchezza",
       "intensity": 3,
       "timestamp": "2026-07-13T07:16:35.926Z"
+    },
+    {
+      "person": "personB",
+      "emoji": "😩",
+      "label": "Stress",
+      "intensity": 2,
+      "timestamp": "2026-07-13T10:13:10.385Z",
+      "note": "Discussione con risposte solite di mia mamma"
     }
   ],
   "diary": [
