@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "🧐",
-      "label": "Concentrazione",
-      "intensity": 2,
-      "timestamp": "2026-07-13T14:59:13.514Z",
-      "note": "Sto cercando di studiare un po’ tra una distrazione e l’altra"
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 3,
+      "timestamp": "2026-07-13T19:39:26.514Z",
+      "note": "Mega mal di testa e sonno"
     },
     "personB": {
       "emoji": "😩",
@@ -367,6 +367,14 @@
       "intensity": 2,
       "timestamp": "2026-07-13T14:59:13.514Z",
       "note": "Sto cercando di studiare un po’ tra una distrazione e l’altra"
+    },
+    {
+      "person": "personA",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 3,
+      "timestamp": "2026-07-13T19:39:26.514Z",
+      "note": "Mega mal di testa e sonno"
     }
   ],
   "diary": [
