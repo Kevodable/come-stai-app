@@ -1,11 +1,10 @@
 {
   "current": {
     "personA": {
-      "emoji": "😢",
-      "label": "Tristezza",
-      "intensity": 2,
-      "timestamp": "2026-07-12T22:02:34.935Z",
-      "note": "Mi dispiace sia già finito il weekend e quindi il tempo con te"
+      "emoji": "😩",
+      "label": "Stress",
+      "intensity": 1,
+      "timestamp": "2026-07-13T06:35:44.735Z"
     },
     "personB": {
       "emoji": "😢",
@@ -329,6 +328,13 @@
       "intensity": 2,
       "timestamp": "2026-07-12T22:02:34.935Z",
       "note": "Mi dispiace sia già finito il weekend e quindi il tempo con te"
+    },
+    {
+      "person": "personA",
+      "emoji": "😩",
+      "label": "Stress",
+      "intensity": 1,
+      "timestamp": "2026-07-13T06:35:44.735Z"
     }
   ],
   "diary": [
