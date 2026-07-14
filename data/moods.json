@@ -8,11 +8,10 @@
       "note": "Mega mal di testa e sonno"
     },
     "personB": {
-      "emoji": "😩",
-      "label": "Stress",
-      "intensity": 2,
-      "timestamp": "2026-07-13T10:13:10.385Z",
-      "note": "Discussione con risposte solite di mia mamma"
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 1,
+      "timestamp": "2026-07-14T09:35:39.045Z"
     }
   },
   "history": [
@@ -375,6 +374,13 @@
       "intensity": 3,
       "timestamp": "2026-07-13T19:39:26.514Z",
       "note": "Mega mal di testa e sonno"
+    },
+    {
+      "person": "personB",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 1,
+      "timestamp": "2026-07-14T09:35:39.045Z"
     }
   ],
   "diary": [
