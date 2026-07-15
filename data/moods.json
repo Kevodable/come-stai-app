@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😩",
-      "label": "Stress",
+      "emoji": "🧐",
+      "label": "Concentrazione",
       "intensity": 2,
-      "timestamp": "2026-07-14T11:52:14.933Z",
-      "note": "Che vita"
+      "timestamp": "2026-07-15T11:09:43.218Z",
+      "note": "Ho fame cerco di muovermi a finire"
     },
     "personB": {
       "emoji": "🧐",
@@ -396,6 +396,14 @@
       "label": "Concentrazione",
       "intensity": 2,
       "timestamp": "2026-07-15T10:06:32.359Z"
+    },
+    {
+      "person": "personA",
+      "emoji": "🧐",
+      "label": "Concentrazione",
+      "intensity": 2,
+      "timestamp": "2026-07-15T11:09:43.218Z",
+      "note": "Ho fame cerco di muovermi a finire"
     }
   ],
   "diary": [
