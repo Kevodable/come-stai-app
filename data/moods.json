@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "🧐",
-      "label": "Concentrazione",
-      "intensity": 2,
-      "timestamp": "2026-07-15T11:09:43.218Z",
-      "note": "Ho fame cerco di muovermi a finire"
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 3,
+      "timestamp": "2026-07-15T15:32:17.868Z",
+      "note": "Esausta. Oggi Anna ha fatto strage in lab:/"
     },
     "personB": {
       "emoji": "🧐",
@@ -404,6 +404,14 @@
       "intensity": 2,
       "timestamp": "2026-07-15T11:09:43.218Z",
       "note": "Ho fame cerco di muovermi a finire"
+    },
+    {
+      "person": "personA",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 3,
+      "timestamp": "2026-07-15T15:32:17.868Z",
+      "note": "Esausta. Oggi Anna ha fatto strage in lab:/"
     }
   ],
   "diary": [
