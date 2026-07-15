@@ -8,10 +8,11 @@
       "note": "Esausta. Oggi Anna ha fatto strage in lab:/"
     },
     "personB": {
-      "emoji": "🧐",
-      "label": "Concentrazione",
+      "emoji": "😢",
+      "label": "Tristezza",
       "intensity": 2,
-      "timestamp": "2026-07-15T10:06:32.359Z"
+      "timestamp": "2026-07-15T17:47:46.453Z",
+      "note": "Mi manchi"
     }
   },
   "history": [
@@ -412,6 +413,14 @@
       "intensity": 3,
       "timestamp": "2026-07-15T15:32:17.868Z",
       "note": "Esausta. Oggi Anna ha fatto strage in lab:/"
+    },
+    {
+      "person": "personB",
+      "emoji": "😢",
+      "label": "Tristezza",
+      "intensity": 2,
+      "timestamp": "2026-07-15T17:47:46.453Z",
+      "note": "Mi manchi"
     }
   ],
   "diary": [
