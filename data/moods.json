@@ -8,10 +8,10 @@
       "note": "Che vita"
     },
     "personB": {
-      "emoji": "😴",
-      "label": "Stanchezza",
-      "intensity": 1,
-      "timestamp": "2026-07-14T09:35:39.045Z"
+      "emoji": "🧐",
+      "label": "Concentrazione",
+      "intensity": 2,
+      "timestamp": "2026-07-15T10:06:32.359Z"
     }
   },
   "history": [
@@ -389,6 +389,13 @@
       "intensity": 2,
       "timestamp": "2026-07-14T11:52:14.933Z",
       "note": "Che vita"
+    },
+    {
+      "person": "personB",
+      "emoji": "🧐",
+      "label": "Concentrazione",
+      "intensity": 2,
+      "timestamp": "2026-07-15T10:06:32.359Z"
     }
   ],
   "diary": [
