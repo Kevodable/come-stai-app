@@ -3,9 +3,9 @@
     "personA": {
       "emoji": "😊",
       "label": "Felicità",
-      "intensity": 2,
-      "timestamp": "2026-07-16T14:26:28.218Z",
-      "note": "Ho finitooo mi basta vedere i risultati dell’ultimo gel🤞🏻🤞🏻"
+      "intensity": 3,
+      "timestamp": "2026-07-16T19:23:46.875Z",
+      "note": "Passato una bella serata, lo vedo cambiare tantissimo ogni volta però"
     },
     "personB": {
       "emoji": "😊",
@@ -445,6 +445,14 @@
       "intensity": 2,
       "timestamp": "2026-07-16T14:26:28.218Z",
       "note": "Ho finitooo mi basta vedere i risultati dell’ultimo gel🤞🏻🤞🏻"
+    },
+    {
+      "person": "personA",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-07-16T19:23:46.875Z",
+      "note": "Passato una bella serata, lo vedo cambiare tantissimo ogni volta però"
     }
   ],
   "diary": [
