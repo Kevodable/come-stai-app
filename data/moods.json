@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😴",
-      "label": "Stanchezza",
+      "emoji": "😊",
+      "label": "Felicità",
       "intensity": 2,
-      "timestamp": "2026-07-16T06:03:16.718Z",
-      "note": "Avrei bisogno di dormire sempre 11 ore ahaha"
+      "timestamp": "2026-07-16T14:26:28.218Z",
+      "note": "Ho finitooo mi basta vedere i risultati dell’ultimo gel🤞🏻🤞🏻"
     },
     "personB": {
       "emoji": "😊",
@@ -437,6 +437,14 @@
       "intensity": 3,
       "timestamp": "2026-07-16T13:41:30.234Z",
       "note": "Quando penso a te mi sento sempre super felice ❤️"
+    },
+    {
+      "person": "personA",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 2,
+      "timestamp": "2026-07-16T14:26:28.218Z",
+      "note": "Ho finitooo mi basta vedere i risultati dell’ultimo gel🤞🏻🤞🏻"
     }
   ],
   "diary": [
