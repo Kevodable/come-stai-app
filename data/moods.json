@@ -8,11 +8,11 @@
       "note": "Passato una bella serata, lo vedo cambiare tantissimo ogni volta però"
     },
     "personB": {
-      "emoji": "😊",
-      "label": "Felicità",
+      "emoji": "😴",
+      "label": "Stanchezza",
       "intensity": 3,
-      "timestamp": "2026-07-16T13:41:30.234Z",
-      "note": "Quando penso a te mi sento sempre super felice ❤️"
+      "timestamp": "2026-07-18T12:31:35.315Z",
+      "note": "Buonanotte amore mio"
     }
   },
   "history": [
@@ -453,6 +453,14 @@
       "intensity": 3,
       "timestamp": "2026-07-16T19:23:46.875Z",
       "note": "Passato una bella serata, lo vedo cambiare tantissimo ogni volta però"
+    },
+    {
+      "person": "personB",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 3,
+      "timestamp": "2026-07-18T12:31:35.315Z",
+      "note": "Buonanotte amore mio"
     }
   ],
   "diary": [
