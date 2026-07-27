@@ -1,10 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😴",
-      "label": "Stanchezza",
+      "emoji": "😊",
+      "label": "Felicità",
       "intensity": 2,
-      "timestamp": "2026-07-26T10:01:06.542Z"
+      "timestamp": "2026-07-27T09:59:32.224Z",
+      "note": "Menomale che c’è il mare"
     },
     "personB": {
       "emoji": "😴",
@@ -467,6 +468,14 @@
       "label": "Stanchezza",
       "intensity": 2,
       "timestamp": "2026-07-26T10:01:06.542Z"
+    },
+    {
+      "person": "personA",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 2,
+      "timestamp": "2026-07-27T09:59:32.224Z",
+      "note": "Menomale che c’è il mare"
     }
   ],
   "diary": [
