@@ -3,9 +3,9 @@
     "personA": {
       "emoji": "😊",
       "label": "Felicità",
-      "intensity": 2,
-      "timestamp": "2026-07-27T09:59:32.224Z",
-      "note": "Menomale che c’è il mare"
+      "intensity": 3,
+      "timestamp": "2026-07-29T08:48:22.633Z",
+      "note": "Sto facendo il puzzle guardando un documentario con alberi fuori e il rumore delle cicale"
     },
     "personB": {
       "emoji": "😴",
@@ -476,6 +476,14 @@
       "intensity": 2,
       "timestamp": "2026-07-27T09:59:32.224Z",
       "note": "Menomale che c’è il mare"
+    },
+    {
+      "person": "personA",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-07-29T08:48:22.633Z",
+      "note": "Sto facendo il puzzle guardando un documentario con alberi fuori e il rumore delle cicale"
     }
   ],
   "diary": [
