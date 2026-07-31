@@ -11,8 +11,7 @@
       "emoji": "😴",
       "label": "Stanchezza",
       "intensity": 3,
-      "timestamp": "2026-07-18T12:31:35.315Z",
-      "note": "Buonanotte amore mio"
+      "timestamp": "2026-07-31T07:48:58.942Z"
     }
   },
   "history": [
@@ -484,6 +483,13 @@
       "intensity": 3,
       "timestamp": "2026-07-29T08:48:22.633Z",
       "note": "Sto facendo il puzzle guardando un documentario con alberi fuori e il rumore delle cicale"
+    },
+    {
+      "person": "personB",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 3,
+      "timestamp": "2026-07-31T07:48:58.942Z"
     }
   ],
   "diary": [
