@@ -1,11 +1,10 @@
 {
   "current": {
     "personA": {
-      "emoji": "😊",
-      "label": "Felicità",
+      "emoji": "😢",
+      "label": "Tristezza",
       "intensity": 3,
-      "timestamp": "2026-07-29T08:48:22.633Z",
-      "note": "Sto facendo il puzzle guardando un documentario con alberi fuori e il rumore delle cicale"
+      "timestamp": "2026-08-01T20:22:17.645Z"
     },
     "personB": {
       "emoji": "😴",
@@ -490,6 +489,13 @@
       "label": "Stanchezza",
       "intensity": 3,
       "timestamp": "2026-07-31T07:48:58.942Z"
+    },
+    {
+      "person": "personA",
+      "emoji": "😢",
+      "label": "Tristezza",
+      "intensity": 3,
+      "timestamp": "2026-08-01T20:22:17.645Z"
     }
   ],
   "diary": [
