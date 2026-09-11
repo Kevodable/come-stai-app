@@ -1,10 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😢",
-      "label": "Tristezza",
+      "emoji": "😊",
+      "label": "Felicità",
       "intensity": 3,
-      "timestamp": "2026-08-01T20:22:17.645Z"
+      "timestamp": "2026-09-11T06:40:11.623Z",
+      "note": "Sto pensando a te"
     },
     "personB": {
       "emoji": "😴",
@@ -496,6 +497,14 @@
       "label": "Tristezza",
       "intensity": 3,
       "timestamp": "2026-08-01T20:22:17.645Z"
+    },
+    {
+      "person": "personA",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-09-11T06:40:11.623Z",
+      "note": "Sto pensando a te"
     }
   ],
   "diary": [
