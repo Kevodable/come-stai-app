@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😊",
-      "label": "Felicità",
-      "intensity": 3,
-      "timestamp": "2026-09-11T06:40:11.623Z",
-      "note": "Sto pensando a te"
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 2,
+      "timestamp": "2026-09-17T16:48:21.735Z",
+      "note": "Che sonnoo"
     },
     "personB": {
       "emoji": "😴",
@@ -505,6 +505,14 @@
       "intensity": 3,
       "timestamp": "2026-09-11T06:40:11.623Z",
       "note": "Sto pensando a te"
+    },
+    {
+      "person": "personA",
+      "emoji": "😴",
+      "label": "Stanchezza",
+      "intensity": 2,
+      "timestamp": "2026-09-17T16:48:21.735Z",
+      "note": "Che sonnoo"
     }
   ],
   "diary": [
