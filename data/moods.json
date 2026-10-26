@@ -1,11 +1,11 @@
 {
   "current": {
     "personA": {
-      "emoji": "😴",
-      "label": "Stanchezza",
-      "intensity": 2,
-      "timestamp": "2026-09-17T16:48:21.735Z",
-      "note": "Che sonnoo"
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-10-26T08:33:58.694Z",
+      "note": "Perché penso al nostro viaggiooo❤️"
     },
     "personB": {
       "emoji": "😴",
@@ -513,6 +513,14 @@
       "intensity": 2,
       "timestamp": "2026-09-17T16:48:21.735Z",
       "note": "Che sonnoo"
+    },
+    {
+      "person": "personA",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-10-26T08:33:58.694Z",
+      "note": "Perché penso al nostro viaggiooo❤️"
     }
   ],
   "diary": [
