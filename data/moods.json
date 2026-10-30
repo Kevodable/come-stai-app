@@ -4,8 +4,8 @@
       "emoji": "😊",
       "label": "Felicità",
       "intensity": 3,
-      "timestamp": "2026-10-26T08:33:58.694Z",
-      "note": "Perché penso al nostro viaggiooo❤️"
+      "timestamp": "2026-10-30T06:48:38.862Z",
+      "note": "Ti amo tanto❤️"
     },
     "personB": {
       "emoji": "😊",
@@ -528,6 +528,14 @@
       "label": "Felicità",
       "intensity": 3,
       "timestamp": "2026-10-30T06:48:00.909Z"
+    },
+    {
+      "person": "personA",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-10-30T06:48:38.862Z",
+      "note": "Ti amo tanto❤️"
     }
   ],
   "diary": [
