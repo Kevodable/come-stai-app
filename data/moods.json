@@ -8,10 +8,10 @@
       "note": "Perché penso al nostro viaggiooo❤️"
     },
     "personB": {
-      "emoji": "😴",
-      "label": "Stanchezza",
+      "emoji": "😊",
+      "label": "Felicità",
       "intensity": 3,
-      "timestamp": "2026-07-31T07:48:58.942Z"
+      "timestamp": "2026-10-30T06:48:00.909Z"
     }
   },
   "history": [
@@ -521,6 +521,13 @@
       "intensity": 3,
       "timestamp": "2026-10-26T08:33:58.694Z",
       "note": "Perché penso al nostro viaggiooo❤️"
+    },
+    {
+      "person": "personB",
+      "emoji": "😊",
+      "label": "Felicità",
+      "intensity": 3,
+      "timestamp": "2026-10-30T06:48:00.909Z"
     }
   ],
   "diary": [
